@@ -9,11 +9,32 @@ public void CGLine(float x1, float y1, float x2, float y2) {
     // For instance: drawPoint(114, 514, color(255, 0, 0)); signifies drawing a red
     // point at (114, 514).
 
-    /*
+    
      stroke(0);
      noFill();
-     line(x1,y1,x2,y2);
-    */
+     //line(x1,y1,x2,y2);
+     int dx = (int) Math.abs(x2 - x1);  
+     int dy = (int) Math.abs(y2 - y1);  
+     int sx = x1 < x2 ? 1 : -1;         
+     int sy = y1 < y2 ? 1 : -1;        
+     int err = dx - dy;                 
+
+     while (true) {
+         drawPoint((int)x1, (int)y1, color(0)); 
+
+         if (x1 == x2 && y1 == y2) break;  
+
+         int e2 = 2 * err;
+         if (e2 > -dy) {
+             err -= dy;
+             x1 += sx;
+         }
+         if (e2 < dx) {
+             err += dx;
+             y1 += sy;
+         }
+     }
+    
 }
 
 public void CGCircle(float x, float y, float r) {
