@@ -1,7 +1,12 @@
 # Lab1
 
 ## Which tasks you have completed
-
+完成util.pde裡的:
+* CGLine
+* CGCircle
+* CGEllipse
+* CGCurve
+* CGEraser
 
 ## Some screenshots of your work
 
