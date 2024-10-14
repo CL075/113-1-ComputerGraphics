@@ -20,6 +20,7 @@
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab1/images/rec.png)
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab1/images/DrawRec.gif)
 ### Draw Oval
+（橢圓形這邊我好像不小心錄得跟截圖的不是同一次QQ）
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab1/images/oval.png)
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab1/images/DrawOval.gif)
 ### Draw Curve
