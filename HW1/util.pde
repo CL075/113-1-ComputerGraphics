@@ -150,7 +150,7 @@ public void CGCurve(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4) {
 
   float totalLength = length1 + length2 + length3;
 
-  int numPoints = Math.max(1, (int)(totalLength * 5));
+  int numPoints = Math.max(1, (int)(totalLength * 2));
 
   for (int i = 0; i <= numPoints; i++) {
     float t = (float) i / numPoints;
@@ -181,19 +181,19 @@ public void CGEraser(Vector3 p1, Vector3 p2) {
   // You can use the mouse wheel to change the eraser range.
   // Utilize the function drawPoint(x, y, color) to apply color to the pixel at
   // coordinates (x, y).
-  
-  int backgroundColor = color(250);
 
-    float xMin = Math.min(p1.x, p2.x);
-    float xMax = Math.max(p1.x, p2.x);
-    float yMin = Math.min(p1.y, p2.y);
-    float yMax = Math.max(p1.y, p2.y);
+  int backgroundColor = color(250, 250, 250, 255);
 
-    for (float x = xMin; x <= xMax; x++) {
-        for (float y = yMin; y <= yMax; y++) {
-            drawPoint(x, y, backgroundColor); 
-        }
+  float xMin = Math.min(p1.x, p2.x);
+  float xMax = Math.max(p1.x, p2.x);
+  float yMin = Math.min(p1.y, p2.y);
+  float yMax = Math.max(p1.y, p2.y);
+
+  for (float x = xMin; x <= xMax; x++) {
+    for (float y = yMin; y <= yMax; y++) {
+      drawPoint(x, y, backgroundColor);
     }
+  }
 }
 
 public void drawPoint(float x, float y, color c) {
