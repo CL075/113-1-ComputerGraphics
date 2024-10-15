@@ -202,11 +202,11 @@ public void drawPoint(float x, float y, color c) {
 }
 
 public void drawCirclePoints(float xc, float yc, float x, float y, color c) {
-  drawPoint(xc + x, yc + y, color(0));  // 第一象限
-  drawPoint(xc - x, yc + y, color(0));  // 第二象限
-  drawPoint(xc + x, yc - y, color(0));  // 第四象限
-  drawPoint(xc - x, yc - y, color(0));  // 第三象限
-  drawPoint(xc + y, yc + x, color(0));  // 45 度角對稱
+  drawPoint(xc + x, yc + y, color(0)); 
+  drawPoint(xc - x, yc + y, color(0));
+  drawPoint(xc + x, yc - y, color(0));
+  drawPoint(xc - x, yc - y, color(0));
+  drawPoint(xc + y, yc + x, color(0));
   drawPoint(xc - y, yc + x, color(0));
   drawPoint(xc + y, yc - x, color(0));
   drawPoint(xc - y, yc - x, color(0));
