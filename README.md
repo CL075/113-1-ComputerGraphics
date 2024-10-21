@@ -38,8 +38,6 @@ Afte
 (我錄的時候，他看起來圖形本身的線條斷斷續續的，所以截圖也一起附上了)
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab1/images/Eraser.gif)
 
-![image](picture or gif url)
-![image](picture or gif url)
 
 ## How you completed these tasks
 我是先用GPT幫我跑出大概的程式碼，然後再去理解每一行都在寫什麼，之後再去依照我自己的需求更改。
