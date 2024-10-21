@@ -34,12 +34,12 @@ Before
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab1/images/before.png)
 Afte
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab1/images/after.png)
-(我錄的時候，他看起來會有缺口，所以截圖也一起附上了)
+(我錄的時候，他看起來會斷斷續續的，所以截圖也一起附上了)
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab1/images/Eraser.gif)
 
 ![image](picture or gif url)
 ![image](picture or gif url)
 
 ## How you completed these tasks
-
+我是先用GPT幫我跑出大概的程式碼，然後再去理解每一行都在寫什麼，之後再去依照我自己的需求更改，例如在畫曲線的時候，他是由好幾個點組成那個線條的，然後調整他的倍數的時候就會改變他的粗度，我就有把她調整成跟其他線條的粗細差不多。
 
