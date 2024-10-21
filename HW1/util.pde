@@ -1,19 +1,7 @@
 public void CGLine(float x1, float y1, float x2, float y2) {
-  // TODO HW1
-  // You need to implement the "line algorithm" in this section.
-  // You can use the function line(x1, y1, x2, y2); to verify the correct answer.
-  // However, remember to comment out before you submit your homework.
-  // Otherwise, you will receive a score of 0 for this part.
-  // Utilize the function drawPoint(x, y, color) to apply color to the pixel at
-  // coordinates (x, y).
-  // For instance: drawPoint(114, 514, color(255, 0, 0)); signifies drawing a red
-  // point at (114, 514).
-
 
   stroke(0);
   noFill();
-  //line(x1,y1,x2,y2);
-
 
   int dx = Math.abs((int)x2 - (int)x1);
   int dy = Math.abs((int)y2 - (int)y1);
@@ -42,18 +30,9 @@ public void CGLine(float x1, float y1, float x2, float y2) {
 }
 
 public void CGCircle(float x, float y, float r) {
-  // TODO HW1
-  // You need to implement the "circle algorithm" in this section.
-  // You can use the function circle(x, y, r); to verify the correct answer.
-  // However, remember to comment out before you submit your homework.
-  // Otherwise, you will receive a score of 0 for this part.
-  // Utilize the function drawPoint(x, y, color) to apply color to the pixel at
-  // coordinates (x, y).
-
 
   stroke(0);
   noFill();
-  //circle(x,y,r*2);
 
   float x0 = 0;
   float y0 = r;
@@ -64,7 +43,8 @@ public void CGCircle(float x, float y, float r) {
   while (x0 < y0) {
     if (d < 0) {
       d += 2 * x0 + 3;
-    } else {
+    } 
+    else {
       d += 2 * (x0 - y0) + 5;
       y0--;
     }
@@ -75,18 +55,9 @@ public void CGCircle(float x, float y, float r) {
 }
 
 public void CGEllipse(float x, float y, float r1, float r2) {
-  // TODO HW1
-  // You need to implement the "ellipse algorithm" in this section.
-  // You can use the function ellipse(x, y, r1,r2); to verify the correct answer.
-  // However, remember to comment out the function before you submit your homework.
-  // Otherwise, you will receive a score of 0 for this part.
-  // Utilize the function drawPoint(x, y, color) to apply color to the pixel at
-  // coordinates (x, y).
-
 
   stroke(0);
   noFill();
-  //ellipse(x,y,r1*2,r2*2);
 
   float xPos = 0;
   float yPos = r2;
@@ -104,7 +75,8 @@ public void CGEllipse(float x, float y, float r1, float r2) {
 
     if (p1 < 0) {
       p1 += (2 * r2Squared * xPos) + r2Squared;
-    } else {
+    } 
+    else {
       yPos--;
       p1 += (2 * r2Squared * xPos) - (2 * r1Squared * yPos) + r2Squared;
     }
@@ -129,20 +101,9 @@ public void CGEllipse(float x, float y, float r1, float r2) {
 }
 
 public void CGCurve(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4) {
-  // TODO HW1
-  // You need to implement the "bezier curve algorithm" in this section.
-  // You can use the function bezier(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x,
-  // p4.y); to verify the correct answer.
-  // However, remember to comment out before you submit your homework.
-  // Otherwise, you will receive a score of 0 for this part.
-  // Utilize the function drawPoint(x, y, color) to apply color to the pixel at
-  // coordinates (x, y).
-
 
   stroke(0);
   noFill();
-  //bezier(p1.x,p1.y,p2.x,p2.y,p3.x,p3.y,p4.x,p4.y);
-
 
   float length1 = distance(p1, p2);
   float length2 = distance(p2, p3);
@@ -170,30 +131,18 @@ public void CGCurve(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4) {
 }
 
 public void CGEraser(Vector3 p1, Vector3 p2) {
-  // TODO HW1
-  // You need to erase the scene in the area defined by points p1 and p2 in this
-  // section.
-  // p1 ------
-  // |       |
-  // |       |
-  // ------ p2
-  // The background color is color(250);
-  // You can use the mouse wheel to change the eraser range.
-  // Utilize the function drawPoint(x, y, color) to apply color to the pixel at
-  // coordinates (x, y).
+    int backgroundColor = color(250, 250, 250, 255);
 
-  int backgroundColor = color(250, 250, 250, 255);
+    float xMin = Math.min(p1.x, p2.x);
+    float xMax = Math.max(p1.x, p2.x);
+    float yMin = Math.min(p1.y, p2.y);
+    float yMax = Math.max(p1.y, p2.y);
 
-  float xMin = Math.min(p1.x, p2.x);
-  float xMax = Math.max(p1.x, p2.x);
-  float yMin = Math.min(p1.y, p2.y);
-  float yMax = Math.max(p1.y, p2.y);
-
-  for (float x = xMin; x <= xMax; x++) {
-    for (float y = yMin; y <= yMax; y++) {
-      drawPoint(x, y, backgroundColor);
+    for (float x = xMin; x <= xMax; x++) {
+        for (float y = yMin; y <= yMax; y++) {
+            drawPoint(x, y, backgroundColor);
+        }
     }
-  }
 }
 
 public void drawPoint(float x, float y, color c) {
