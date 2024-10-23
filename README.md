@@ -1,3 +1,12 @@
-# NCU 113-1 3D Computer Graphics Assignments
+# Lab2
 
-切換分支可看到該次作業
+## Which tasks you have completed
+
+
+## Some screenshots of your work
+![image]()
+![image]()
+![image]()
+
+## How you completed these tasks
+
