@@ -34,32 +34,37 @@ static class Matrix4{
   void makeRotX(float a) {
     // TODO HW2
     // You need to implement the rotation of x-axis matrix here. (Roll)
-    
-    
     makeIdentity();
+
   }
   void makeRotY(float a) {
     // TODO HW2
     // You need to implement the rotation of y-axis matrix here. (Pitch)
     makeIdentity();
+    
   }
   void makeRotZ(float a) {
      // TODO HW2
      // You need to implement the rotation of z-axis matrix here. (Yaw)
     makeIdentity();
-
+    
   }
-  
+  //*****
   void makeTrans(Vector3 t) {
     // TODO HW2
     // You need to implement the translate matrix here.
     makeIdentity();
-    
+    m[3] = t.x;
+    m[7] = t.y;
+    m[11] = t.z;
   }
+  
   void makeScale(Vector3 s) {
     // TODO HW2
     // You need to implement the scale matrix here.
     makeIdentity();
+
+    
   }
   
   void makeMirror(){
@@ -104,7 +109,7 @@ static class Matrix4{
   
   static Matrix4 Trans(Vector3 t){
     Matrix4 matrix=new Matrix4();
-    matrix.makeTrans(t);
+    matrix.(t);
     return matrix;
   }
   
@@ -138,6 +143,7 @@ static class Matrix4{
   }
   
   //getter
+  //*****
   void setTranslation(Vector3 t) {
     m[3] = t.x;
     m[7] = t.y;
@@ -173,7 +179,7 @@ static class Matrix4{
     out.m[12] = m[3]; out.m[13] = m[7]; out.m[14] = m[11]; out.m[15] = m[15];
     return out;
   }
-  
+  //*****
   void Translate(Vector3 t) {
     m[3] += t.x;
     m[7] += t.y;
