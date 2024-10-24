@@ -109,7 +109,7 @@ static class Matrix4{
   
   static Matrix4 Trans(Vector3 t){
     Matrix4 matrix=new Matrix4();
-    matrix.(t);
+    matrix.makeTrans(t);
     return matrix;
   }
   
