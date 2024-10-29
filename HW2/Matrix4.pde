@@ -64,7 +64,6 @@ static class Matrix4{
     m[5] = (float) Math.cos(a);   // cos(a)
     
   }
-  //*****
   void makeTrans(Vector3 t) {
     // TODO HW2
     // You need to implement the translate matrix here.
@@ -163,7 +162,6 @@ static class Matrix4{
   }
   
   //getter
-  //*****
   void setTranslation(Vector3 t) {
     m[3] = t.x;
     m[7] = t.y;
@@ -199,7 +197,6 @@ static class Matrix4{
     out.m[12] = m[3]; out.m[13] = m[7]; out.m[14] = m[11]; out.m[15] = m[15];
     return out;
   }
-  //*****
   void Translate(Vector3 t) {
     m[3] += t.x;
     m[7] += t.y;
