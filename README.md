@@ -7,7 +7,7 @@
 Matrix4::makeTrans(Vector3 t)
 ```
 平移矩陣為：
-![]("https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/trans.svg")
+![]("https://raw.githack.com/CL075/113-1-ComputerGraphics/Lab2/math_image/trans.svg")
 
 其中(tx, ty, tz)則代表的是他們所移動的單位。  
 <br>
