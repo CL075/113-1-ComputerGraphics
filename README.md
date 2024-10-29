@@ -7,7 +7,7 @@
 Matrix4::makeTrans(Vector3 t)
 ```
 平移矩陣為：
-![image]("https://github.com/CL075/113-1-ComputerGraphics/Lab2/math_image/trans.png")
+![image]("https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/trans.png")
 $$
 T = \begin{bmatrix}
 1 & 0 & 0 & t_x \\
