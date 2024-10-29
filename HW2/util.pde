@@ -3,30 +3,34 @@ public void CGLine(float x1, float y1, float x2, float y2) {
   // Please paste your code from HW1 CGLine.
   stroke(0);
   noFill();
+  line(x1,y1,x2,y2);
 
-  int dx = Math.abs((int)x2 - (int)x1);
-  int dy = Math.abs((int)y2 - (int)y1);
+  int xStart = Math.round(x1);
+  int yStart = Math.round(y1);
+  int xEnd = Math.round(x2);
+  int yEnd = Math.round(y2);
 
-  int sx = (x1 < x2) ? 1 : -1;
-  int sy = (y1 < y2) ? 1 : -1;
-
+  int dx = Math.abs(xEnd - xStart);
+  int dy = Math.abs(yEnd - yStart);
+  int sx = (xStart < xEnd) ? 1 : -1;
+  int sy = (yStart < yEnd) ? 1 : -1;
   int err = dx - dy;
 
-  while (true) {
-    drawPoint((int)x1, (int)y1, color(0));
+  int maxSteps = dx + dy;
+  for (int i = 0; i <= maxSteps; i++) {
+      drawPoint(xStart, yStart, color(0));
 
-    if (x1 == x2 && y1 == y2) break;
+      if (xStart == xEnd && yStart == yEnd) break;
 
-    int e2 = 2 * err;
-
-    if (e2 > -dy) {
-      err -= dy;
-      x1 += sx;
-    }
-    if (e2 < dx) {
-      err += dx;
-      y1 += sy;
-    }
+      int e2 = 2 * err;
+      if (e2 > -dy) {
+          err -= dy;
+          xStart += sx;
+      }
+      if (e2 < dx) {
+          err += dx;
+          yStart += sy;
+      }
   }
 }
 
@@ -69,6 +73,23 @@ public Vector3[] findBoundBox(Vector3[] v) {
 
   Vector3 recordminV = new Vector3(0);
   Vector3 recordmaxV = new Vector3(999);
+
+  if (v == null || v.length == 0) {
+        return new Vector3[]{recordminV, recordmaxV};
+    }
+
+  for (int i = 0; i < v.length; i++) {
+      Vector3 current = v[i];
+
+      recordminV.x = Math.min(recordminV.x, current.x);
+      recordminV.y = Math.min(recordminV.y, current.y);
+      recordminV.z = Math.min(recordminV.z, current.z);
+
+      recordmaxV.x = Math.max(recordmaxV.x, current.x);
+      recordmaxV.y = Math.max(recordmaxV.y, current.y);
+      recordmaxV.z = Math.max(recordmaxV.z, current.z);
+  }
+
   Vector3[] result = { recordminV, recordmaxV };
   return result;
 }
