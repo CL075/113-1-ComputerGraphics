@@ -43,19 +43,42 @@ $$
 將基礎矩陣變成平移矩陣，以此來達到移動圖形的目的。
 
 
+### Scaling Matrix
+```
+Matrix4::makeScale(Vector3 s)
+```
+同理，縮放矩陣為：
+$$
+S = \begin{bmatrix}
+s_x & 0 & 0 & 0 \\
+0 & s_y & 0 & 0 \\
+0 & 0 & s_z & 0 \\
+0 & 0 & 0 & 1 \\
+\end{bmatrix}
+$$
+![image]("https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/scale.png")
 
+所以我們透過
+$$
+m[3] = t_x \\
+m[7] = t_y \\
+m[11] = t_z
+$$
+![image]("https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/setScale.png")
+可達到縮放圖形的目的。
 
 ### Rotation Matrix (Z-axis)
 ```
 Matrix4::makeRotZ(float a)
 ```
+![image]()
+![image]()
+![image]()
+![image]()
+![image]()
+![image]()
 
 
-
-### Scaling Matrix
-```
-Matrix4::makeScale(Vector3 s)
-```
 
 ### Is the point inside a shape?
 ```
