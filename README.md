@@ -7,17 +7,17 @@
 Matrix4::makeTrans(Vector3 t)
 ```
 平移矩陣為：
-![Description]("https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/trans.svg")
+![]("https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/trans.svg")
 
 其中(tx, ty, tz)則代表的是他們所移動的單位。  
 <br>
 且我們一開始有設一個基礎的矩陣為：
-![Description]("https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/identity.svg")  
+![]("https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/identity.svg")  
 
 由左至右，由上至下，分別將他從m[0]~m[15]依序編號。  
 <br>
 所以我們可以透過
-![Description]("https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/setTrans.svg")
+![]("https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/setTrans.svg")
 
 將基礎矩陣變成平移矩陣，以此來達到移動圖形的目的。
 
