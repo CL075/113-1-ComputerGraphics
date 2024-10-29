@@ -60,9 +60,9 @@ $$
 
 所以我們透過
 $$
-m[3] = t_x \\
-m[7] = t_y \\
-m[11] = t_z
+m[0] = s_x \\
+m[5] = s_y \\
+m[10] = s_z
 $$
 ![image]("https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/setScale.png")
 可達到縮放圖形的目的。
