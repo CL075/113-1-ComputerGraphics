@@ -12,7 +12,7 @@ Matrix4::makeTrans(Vector3 t)
 <br>
 且我們一開始有設一個基礎的矩陣為：
 ![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/identity.svg)
-，由左至右，由上至下，分別將他從m[0]~m[15]依序編號。  
+，由左至右，由上至下，分別將他從m[0]至m[15]依序編號。  
 <br>
 所以我們可以透過
 ![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/setTrans.svg)
@@ -34,12 +34,17 @@ Matrix4::makeScale(Vector3 s)
 ```
 Matrix4::makeRotZ(float a)
 ```
-![image]()
-![image]()
-![image]()
-![image]()
-![image]()
-![image]()
+繞x矩陣：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_x.svg)  
+繞y矩陣：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_y.svg)
+
+繞z矩陣(也是我們在這個實作中實際可以看到的旋轉矩陣)：
+![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_z.svg)
+
+一樣是透過那個基礎的矩陣，將對應的位置改成跟旋轉矩陣相同。
+
+![svg]()
+![svg]()
+![svg]()
 
 
 

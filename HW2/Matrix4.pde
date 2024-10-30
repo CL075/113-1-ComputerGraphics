@@ -39,7 +39,7 @@ static class Matrix4{
     m[5] = (float) Math.cos(a);   // cos(a)
     m[6] = (float) -Math.sin(a);  // -sin(a)
     m[9] = (float) Math.sin(a);   // sin(a)
-    m[10] = (float) Math.cos(a);
+    m[10] = (float) Math.cos(a);  // cos(a)
 
   }
   void makeRotY(float a) {
