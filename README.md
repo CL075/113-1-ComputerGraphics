@@ -11,10 +11,12 @@ Matrix4::makeTrans(Vector3 t)
 
 其中(tx, ty, tz)則代表的是他們所移動的單位。  
 <br>
+<br>
 且我們一開始有設一個基礎的矩陣為：
 ![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/identity.svg)  
 
 由左至右，由上至下，分別將他從m[0]~m[15]依序編號。  
+<br>
 <br>
 所以我們可以透過
 ![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/setTrans.svg)
