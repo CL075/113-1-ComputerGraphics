@@ -34,7 +34,8 @@ Matrix4::makeScale(Vector3 s)
 ```
 Matrix4::makeRotZ(float a)
 ```
-繞x矩陣：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_x.svg)  
+繞x矩陣：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_x.svg) 
+<br> 
 繞y矩陣：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_y.svg)
 
 繞z矩陣(也是我們在這個實作中實際可以看到的旋轉矩陣)：
