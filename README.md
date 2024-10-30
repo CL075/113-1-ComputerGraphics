@@ -7,7 +7,8 @@
 Matrix4::makeTrans(Vector3 t)
 ```
 平移矩陣為：
-![image](https://github.com/CL075/113-1-ComputerGraphics/raw/Lab2/math_image/trans.png)
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/trans.png)
+![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/trans.svg)
 $$
 T = \begin{bmatrix}
 1 & 0 & 0 & t_x \\
@@ -20,7 +21,7 @@ $$
 其中(tx, ty, tz)則代表的是他們所移動的單位。  
 <br>
 且我們一開始有設一個基礎的矩陣為：
-![image]("https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/identity.png") 
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/identity.png) 
 $$
 \begin{bmatrix}
 1 & 0 & 0 & 0 \\
@@ -38,7 +39,7 @@ m[3] = t_x \\
 m[7] = t_y \\
 m[11] = t_z
 $$
-![image]("https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/setTrans.png")
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/setTrans.png)
 
 將基礎矩陣變成平移矩陣，以此來達到移動圖形的目的。
 
@@ -56,7 +57,7 @@ s_x & 0 & 0 & 0 \\
 0 & 0 & 0 & 1 \\
 \end{bmatrix}
 $$
-![image]("https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/scale.png")
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/scale.png)
 
 所以我們透過
 $$
@@ -64,7 +65,7 @@ m[0] = s_x \\
 m[5] = s_y \\
 m[10] = s_z
 $$
-![image]("https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/setScale.png")
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/setScale.png)
 可達到縮放圖形的目的。
 
 ### Rotation Matrix (Z-axis)
