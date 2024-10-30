@@ -56,8 +56,25 @@ boolean pnpoly(float x, float y, Vector3[] vertexes) {
   // TODO HW2
   // You need to check the coordinate p(x,v) if inside the vertices.
   // If yes return true, vice versa.
+  int numVertices = vertexes.length;
+  boolean inside = false;
 
-  return false;
+  // 遍历每一条边
+  for (int i = 0, j = numVertices - 1; i < numVertices; j = i++) {
+      float xi = vertexes[i].x;
+      float yi = vertexes[i].y;
+      float xj = vertexes[j].x;
+      float yj = vertexes[j].y;
+
+      // 检查射线与边的交点
+      boolean intersect = ((yi > y) != (yj > y)) &&
+                          (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+      if (intersect) {
+          inside = !inside; // 切换状态
+      }
+  }
+
+  return inside;
 }
 
 public Vector3[] findBoundBox(Vector3[] v) {
@@ -74,9 +91,9 @@ public Vector3[] findBoundBox(Vector3[] v) {
   Vector3 recordminV = new Vector3(0);
   Vector3 recordmaxV = new Vector3(999);
 
-  if (v == null || v.length == 0) {
+  /*if (v == null || v.length == 0) {
         return new Vector3[]{recordminV, recordmaxV};
-    }
+    }*/
 
   for (int i = 0; i < v.length; i++) {
       Vector3 current = v[i];
