@@ -34,12 +34,12 @@ Matrix4::makeScale(Vector3 s)
 ```
 Matrix4::makeRotZ(float a)
 ```
-繞x矩陣：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_x.svg) 
+繞x矩陣：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_x.svg)，修改m[5]、m[6]、m[9]、m[10]
 <br> 
-繞y矩陣：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_y.svg)
+繞y矩陣：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_y.svg)，修改m[0]、m[2]、m[8]、m[10]
 
 繞z矩陣(也是我們在這個實作中實際可以看到的旋轉矩陣)：
-![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_z.svg)
+![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_z.svg)，修改m[0]、m[1]、m[4]、m[5]
 
 一樣是透過那個基礎的矩陣，將對應的位置改成跟旋轉矩陣相同。
 
