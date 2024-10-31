@@ -36,6 +36,7 @@ Matrix4::makeRotZ(float a)
 ```
 繞x矩陣：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_x.svg)，修改m[5]、m[6]、m[9]、m[10]
 <br> 
+<br>
 繞y矩陣：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_y.svg)，修改m[0]、m[2]、m[8]、m[10]
 
 繞z矩陣(也是我們在這個實作中實際可以看到的旋轉矩陣)：
