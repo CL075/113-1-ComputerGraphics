@@ -124,11 +124,68 @@ public Vector3[] Sutherland_Hodgman_algorithm(Vector3[] points, Vector3[] bounda
   // And the other is the vertices of the "boundary".
   // The output is the vertices of the polygon.
 
-  output = input;
+  //output = input;
+
+    for (int j = 0; j < boundary.length; j++) {
+        Vector3 edgeStart = boundary[j];
+        Vector3 edgeEnd = boundary[(j + 1) % boundary.length];
+
+        output.clear();
+
+        for (int i = 0; i < input.size(); i++) {
+            Vector3 current = input.get(i);
+            Vector3 next = input.get((i + 1) % input.size());
+
+            boolean currentInside = isInside(current, edgeStart, edgeEnd);
+            boolean nextInside = isInside(next, edgeStart, edgeEnd);
+
+            // 判斷當前點和下一點的相對位置並處理
+            if (currentInside && nextInside) {
+                output.add(next); // 如果都在內部，保留下一點
+            } 
+            else if (currentInside) {
+                output.add(calculateIntersection(current, next, edgeStart, edgeEnd)); // 如果 current 在內，計算交點並加入
+            } 
+            else if (nextInside) {
+                output.add(calculateIntersection(current, next, edgeStart, edgeEnd)); // 如果 next 在內，計算交點並加入
+                output.add(next);
+            }
+        }
+
+        // 更新 input 為當前步驟的輸出，進入下一條邊界
+        input = new ArrayList<>(output);
+    }
+
+
 
   Vector3[] result = new Vector3[output.size()];
   for (int i = 0; i < result.length; i += 1) {
     result[i] = output.get(i);
   }
   return result;
+}
+
+private boolean isInside(Vector3 point, Vector3 edgeStart, Vector3 edgeEnd) {
+    return (edgeEnd.x - edgeStart.x) * (point.y - edgeStart.y) - 
+           (edgeEnd.y - edgeStart.y) * (point.x - edgeStart.x) <= 0;
+}
+
+private Vector3 calculateIntersection(Vector3 p1, Vector3 p2, Vector3 edgeStart, Vector3 edgeEnd) {
+    float A1 = edgeEnd.y - edgeStart.y;
+    float B1 = edgeStart.x - edgeEnd.x;
+    float C1 = A1 * edgeStart.x + B1 * edgeStart.y;
+    
+    float A2 = p2.y - p1.y;
+    float B2 = p1.x - p2.x;
+    float C2 = A2 * p1.x + B2 * p1.y;
+
+    float det = A1 * B2 - A2 * B1;
+    if (det == 0) {
+        return p1; 
+    } 
+    else {
+        float x = (B2 * C1 - B1 * C2) / det;
+        float y = (A1 * C2 - A2 * C1) / det;
+        return new Vector3(x, y, 0);
+    }
 }
