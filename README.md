@@ -43,8 +43,9 @@ Matrix4::makeRotZ(float a)
 ![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_z.svg)，修改m[0]、m[1]、m[4]、m[5]
 <br>
 (也是我們在這個實作中實際可以看到的旋轉矩陣)
-
-一樣是透過那個基礎的矩陣，將對應的位置改成跟旋轉矩陣相同。
+<br>
+<br>
+一樣都是透過那個基礎的矩陣，將對應的位置改成跟旋轉矩陣相同，以此來實現圖形的旋轉。
 
 
 ### Is the point inside a shape?
