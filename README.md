@@ -1,11 +1,51 @@
 # Lab2
 
-## Which tasks you have completed
 (如果GitHub底色是深色可能會看不到數學公式)
+## Which tasks you have completed
+
 ### Translation Matrix
 ```
 Matrix4::makeTrans(Vector3 t)
 ```
+
+### Scaling Matrix
+```
+Matrix4::makeScale(Vector3 s)
+```
+
+
+### Rotation Matrix
+```
+Matrix4::makeRotX(float a)
+Matrix4::makeRotY(float a)
+Matrix4::makeRotZ(float a)
+```
+
+### Is the point inside a shape?
+```
+util::pnpoly(float x, float y, Vector3[] vertexes)
+```
+
+### Find the boundary of a polygon
+```
+util::findBoundBox(Vector3[] v) 
+```
+
+### Keep the polygon inside the canvas
+```
+util::Sutherland_Hodgman_algorithm(Vector3[] points,Vector3[] boundary)
+```
+
+## Some screenshots of your work
+![image]()
+![image]()
+![image]()
+
+## How you completed these tasks
+透過ChatGPT先寫出大致的程式碼，然後再去實際執行看看，如果不能執行就再針對我遇到的問題去詢問GPT。
+
+### Translation Matrix
+
 平移矩陣為：
 ![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/trans.svg)
 ，其中![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/txtytz.svg)則代表的是他們所移動的單位。  
@@ -20,9 +60,7 @@ Matrix4::makeTrans(Vector3 t)
 
 
 ### Scaling Matrix
-```
-Matrix4::makeScale(Vector3 s)
-```
+
 同理，縮放矩陣為：
 ![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/scale.svg)
 
@@ -31,9 +69,7 @@ Matrix4::makeScale(Vector3 s)
 可達到縮放圖形的目的。
 
 ### Rotation Matrix (Z-axis)
-```
-Matrix4::makeRotZ(float a)
-```
+
 繞x矩陣：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_x.svg)，修改m[5]、m[6]、m[9]、m[10]
 <br> 
 <br>
@@ -49,9 +85,7 @@ Matrix4::makeRotZ(float a)
 
 
 ### Is the point inside a shape?
-```
-util::pnpoly(float x, float y, Vector3[] vertexes)
-```
+
 設定變數：
 ```
 int numVertices = vertexes.length; // 用來記錄多邊形頂點的數量
@@ -83,9 +117,7 @@ return inside; // 回覆當前儲存的狀態
 ```
 
 ### Find the boundary of a polygon
-```
-util::findBoundBox(Vector3[] v) 
-```
+
 檢查輸入的有效性：
 ```
 // 如果v是 null 或者 長度是0 的時候，他會返回初始值
@@ -119,9 +151,6 @@ return result;
 ```
 
 ### Keep the polygon inside the canvas
-```
-util::Sutherland_Hodgman_algorithm(Vector3[] points,Vector3[] boundary)
-```
 
 初始化```input```和```output```，並將```points```加到```input```裡面：
 ```
@@ -172,7 +201,6 @@ private boolean isInside(Vector3 point, Vector3 edgeStart, Vector3 edgeEnd) {
     return (edgeEnd.x - edgeStart.x) * (point.y - edgeStart.y) - 
            (edgeEnd.y - edgeStart.y) * (point.x - edgeStart.x) <= 0;
 }
-
 ```
 
 根據內外判斷決定剪裁行為：
@@ -240,10 +268,5 @@ for (int i = 0; i < result.length; i++) {
 return result;
 ```
 
-## Some screenshots of your work
-![image]()
-![image]()
-![image]()
-
-## How you completed these tasks
-
+### 遇到的問題
+一開始我先把上一次作業的```util::CGLine```貼上去，並且讓他執行看看能不能跑出長方形，我發現能跑出來之後我就先去寫平移的矩陣了，但是不管改了多少次，他在移動那個滑桿的時候，都會當機，我一開始以為是我```Translation Matrix```寫得有問題，但是明明是對照著公式寫的，卻一直當機，我還有去問GPT為什麼會當機，但他給我的答案都不是功課裡需要我填空的部分，後來我就想說會不會是```util::CGLine```的問題，我原本在裡面寫的是while迴圈，後來想想可能是while迴圈一直跑導致的，我就把它改成for迴圈，然後就解決了。
