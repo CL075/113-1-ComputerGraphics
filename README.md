@@ -112,7 +112,7 @@ recordmaxV.y = Math.max(recordmaxV.y, current.y);
 recordmaxV.z = Math.max(recordmaxV.z, current.z);
 ```
 
-返回邊界框
+返回邊界框：
 ```
 Vector3[] result = { recordminV, recordmaxV };
 return result;
@@ -123,7 +123,7 @@ return result;
 util::Sutherland_Hodgman_algorithm(Vector3[] points,Vector3[] boundary)
 ```
 
-初始化```input```和```output```，並將```points```加到```input```裡面
+初始化```input```和```output```，並將```points```加到```input```裡面：
 ```
 ArrayList<Vector3> input = new ArrayList<Vector3>();
 ArrayList<Vector3> output = new ArrayList<Vector3>();
@@ -133,7 +133,7 @@ for (int i = 0; i < points.length; i += 1) {
 }
 ```
 
-對每條邊界進行剪裁
+對每條邊界進行剪裁：
 ```
 //使用 boundary 多邊形中的每一對連續頂點
 for (int j = 0; j < boundary.length; j++) {
@@ -145,7 +145,7 @@ for (int j = 0; j < boundary.length; j++) {
     output.clear();  // 清空輸出列表，每次儲存新結果
 ```
 
-遍歷多邊形的每條邊來進行剪裁的判斷
+遍歷多邊形的每條邊來進行剪裁的判斷：
 ```
 for (int i = 0; i < input.size(); i++) {
 
@@ -154,7 +154,7 @@ for (int i = 0; i < input.size(); i++) {
     Vector3 next = input.get((i + 1) % input.size());
 ```
 
-使用```isInside```判斷點是否位於邊界內部
+使用```isInside```判斷點是否位於邊界內部：
 ```
 boolean currentInside = isInside(current, edgeStart, edgeEnd);
 boolean nextInside = isInside(next, edgeStart, edgeEnd);
@@ -175,7 +175,7 @@ private boolean isInside(Vector3 point, Vector3 edgeStart, Vector3 edgeEnd) {
 
 ```
 
-根據內外判斷決定剪裁行為
+根據內外判斷決定剪裁行為：
 ```
 if (currentInside && nextInside) {
     output.add(next);
@@ -226,12 +226,12 @@ private Vector3 calculateIntersection(Vector3 p1, Vector3 p2, Vector3 edgeStart,
     }
 }
 ```
-將```output```中的頂點複製到```input```，準備進行下一條邊的剪裁
+將```output```中的頂點複製到```input```，準備進行下一條邊的剪裁：
 ```
 input = new ArrayList<>(output);
 ```
 
-返回剪裁後的結果
+返回剪裁後的結果：
 ```
 Vector3[] result = new Vector3[output.size()];
 for (int i = 0; i < result.length; i++) {
