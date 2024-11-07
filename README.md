@@ -58,20 +58,11 @@ util::Sutherland_Hodgman_algorithm(Vector3[] points,Vector3[] boundary)
 ### Y軸方向擴展
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/scal_y.gif)
 
-### 右邊邊界裁切
-![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/right.gif)
+### 長方形遇到邊界裁切
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/rec_bou.gif)
 
-### 左邊邊界裁切
-![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/left.gif)
-
-### 上面邊界裁切
-![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/top.gif)
-
-### 下面邊界裁切
-![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/bottom.gif)
-
-### 在邊界上調整position
-![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/bou_pos.gif)
+### 星行遇到邊界裁切
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/star_bou.gif)
 
 ### 在邊界上調整scale
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/bou_scal.gif)
