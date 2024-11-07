@@ -13,7 +13,6 @@ Matrix4::makeTrans(Vector3 t)
 Matrix4::makeScale(Vector3 s)
 ```
 
-
 ### Rotation Matrix
 ```
 Matrix4::makeRotX(float a)
@@ -37,9 +36,49 @@ util::Sutherland_Hodgman_algorithm(Vector3[] points,Vector3[] boundary)
 ```
 
 ## Some screenshots of your work
-![image]()
-![image]()
-![image]()
+
+### 跑出Rectangle
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/rectangle.gif)
+
+### 跑出Star
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/star.gif)
+
+### X軸方向移動
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/tran_x.gif)
+
+### Y軸方向移動
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/tran_y.gif)
+
+### 繞Z軸旋轉
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/rot_z.gif)
+
+### X軸方向擴展
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/scal_x.gif)
+
+### Y軸方向擴展
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/scal_y.gif)
+
+### 右邊邊界裁切
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/right.gif)
+
+### 左邊邊界裁切
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/left.gif)
+
+### 上面邊界裁切
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/top.gif)
+
+### 下面邊界裁切
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/bottom.gif)
+
+### 在邊界上調整position
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/bou_pos.gif)
+
+### 在邊界上調整scale
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/bou_scal.gif)
+
+### 在邊界上調整rotation
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/images/bou_rot.gif)
+
 
 ## How you completed these tasks
 透過ChatGPT先寫出大致的程式碼，然後再去實際執行看看，如果不能執行就再針對我遇到的問題去詢問GPT。
