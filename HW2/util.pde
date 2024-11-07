@@ -139,20 +139,18 @@ public Vector3[] Sutherland_Hodgman_algorithm(Vector3[] points, Vector3[] bounda
             boolean currentInside = isInside(current, edgeStart, edgeEnd);
             boolean nextInside = isInside(next, edgeStart, edgeEnd);
 
-            // 判斷當前點和下一點的相對位置並處理
             if (currentInside && nextInside) {
-                output.add(next); // 如果都在內部，保留下一點
+                output.add(next);
             } 
             else if (currentInside) {
-                output.add(calculateIntersection(current, next, edgeStart, edgeEnd)); // 如果 current 在內，計算交點並加入
+                output.add(calculateIntersection(current, next, edgeStart, edgeEnd));
             } 
             else if (nextInside) {
-                output.add(calculateIntersection(current, next, edgeStart, edgeEnd)); // 如果 next 在內，計算交點並加入
+                output.add(calculateIntersection(current, next, edgeStart, edgeEnd));
                 output.add(next);
             }
         }
 
-        // 更新 input 為當前步驟的輸出，進入下一條邊界
         input = new ArrayList<>(output);
     }
 
