@@ -49,6 +49,16 @@ public class Camera {
 
         projection = Matrix4.Identity();
 
+        float aspectRatio = (float)w / (float)h;
+    
+        // 設置投影矩陣為透視投影
+        projection.m[0] = 1.0f / (aspectRatio * (float)Math.tan(Math.toRadians(GH_FOV / 2.0f)));
+        projection.m[5] = 1.0f / (float)Math.tan(Math.toRadians(GH_FOV / 2.0f));
+        projection.m[10] = (far + near) / (near - far);
+        projection.m[11] = (2.0f * far * near) / (near - far);
+        projection.m[14] = -1.0f;
+        projection.m[15] = 0.0f;
+
     }
 
     void setPositionOrientation(Vector3 pos, float rotX, float rotY) {
@@ -62,6 +72,42 @@ public class Camera {
         // We uses topVector = (0,1,0) to calculate the eye matrix.
         // Finally, pass the result into worldView matrix.
 
+        //worldView = Matrix4.Identity();
+
+        // 1. 計算視點向量
+        Vector3 topVector = new Vector3(0, 1, 0);  // 定義上向量
+
+        Vector3 forward = lookat.sub(pos);   // 計算朝向向量
+        forward.normalize();  // 正規化這個向量
+        
+        Vector3 right = Vector3.cross(topVector, forward);   // 計算右向量
+        right.normalize();  // 正規化右向量
+        
+        Vector3 up = Vector3.cross(right, forward);
+        up.normalize();
+        
+        // 2. 建立視圖矩陣（也可以稱為視野矩陣）
         worldView = Matrix4.Identity();
+        
+        // 將右、上、前向量設置到矩陣中
+        worldView.m[0] = right.x;
+        worldView.m[1] = right.y;
+        worldView.m[2] = right.z;
+        
+        worldView.m[4] = up.x;
+        worldView.m[5] = up.y;
+        worldView.m[6] = up.z;
+        
+        worldView.m[8] = -forward.x;
+        worldView.m[9] = -forward.y;
+        worldView.m[10] = -forward.z;
+        
+        // 3. 設置相機位置
+        worldView.m[12] = -pos.x;
+        worldView.m[13] = -pos.y;
+        worldView.m[14] = -pos.z;
+    
     }
+
+
 }
