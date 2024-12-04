@@ -47,6 +47,7 @@ Matrix4::makeRotY(Vector3 t)
 ![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/identity.svg)
 ，由左至右，由上至下，分別將他從```m[0]```至```m[15]```依序編號。
 <br>
+<br>
 繞y矩陣的公式為：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_y.svg)
 <br>
 根據基礎矩陣及公式，修改```m[0]```、```m[2]```、```m[8]```、```m[10]```
@@ -154,11 +155,13 @@ projection.m[15] = 0.0f;
 ![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/mathImg/Horizontal_zoom.svg)
 <br>
 ![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/mathImg/vertical_zoom.svg)
+
 2. 設置深度方向的投影參數
 ```projection.m[10]``` 和 ```projection.m[11]``` 用於將深度（Z 軸）壓縮到 ```[−1,1]``` 的範圍內：
 ![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/mathImg/m[10].svg)
 <br>
 ![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/mathImg/m[11].svg)
+
 3. 設置透視投影的偏移
 * ```​projection.m[14] = -1.0f```：表示投影矩陣的透視性，將 3D 點壓縮到 2D。
 * ```projection.m[15] = 0.0f```：固定在透視投影的標準形式中，表示投影到齊次坐標。
