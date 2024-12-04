@@ -154,7 +154,28 @@ public float getDepth(float x, float y, Vector3[] vertex) {
     // You need to calculate the depth (z) in the triangle (vertex) based on the
     // positions x and y. and return the z value;
 
-    return 0.0;
+    // 取三角形的頂點
+    Vector3 A = vertex[0];
+    Vector3 B = vertex[1];
+    Vector3 C = vertex[2];
+    
+    // 計算邊 AB, BC, CA 的長度
+    float areaTotal = Math.abs(A.x * (B.y - C.y) + B.x * (C.y - A.y) + C.x * (A.y - B.y));
+    
+    // 計算重心座標 u, v, w
+    float area1 = Math.abs(x * (B.y - C.y) + B.x * (C.y - y) + C.x * (y - B.y));
+    float area2 = Math.abs(A.x * (y - C.y) + x * (C.y - A.y) + C.x * (A.y - y));
+    float area3 = Math.abs(A.x * (B.y - y) + B.x * (y - A.y) + x * (A.y - B.y));
+    
+    // 根據重心座標公式計算 z 值
+    float u = area1 / areaTotal;
+    float v = area2 / areaTotal;
+    float w = area3 / areaTotal;
+
+    // 根據重心座標計算 z 值 (這裡假設 z 是線性插值)
+    return u * A.z + v * B.z + w * C.z;
+
+    //return 0.0;
 }
 
 float[] barycentric(Vector3 P, Vector4[] verts) {
