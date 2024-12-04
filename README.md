@@ -171,6 +171,9 @@ projection.m[15] = 0.0f;
 * ```​projection.m[14] = -1.0f```：表示投影矩陣的透視性，將 3D 點壓縮到 2D。
 * ```projection.m[15] = 0.0f```：固定在透視投影的標準形式中，表示投影到齊次坐標。
 
+投影矩陣的最終形式：
+![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/mathImg/final.svg)
+
 
 #### Depth Buffer
 ```
