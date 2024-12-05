@@ -85,6 +85,32 @@ static public class Matrix4{
    m[10] = s.z;
 
   }
+  void makeRotation(float angle, Vector3 axis) {
+    // 轉換角度為弧度
+    float radian = (float) Math.toRadians(angle);
+    float cos = (float) Math.cos(radian);
+    float sin = (float) Math.sin(radian);
+
+    // 正規化旋轉軸
+    axis.normalize();  // 確保軸是單位向量
+
+    // 旋轉矩陣公式
+    m[0] = cos + axis.x * axis.x * (1 - cos);
+    m[1] = axis.x * axis.y * (1 - cos) - axis.z * sin;
+    m[2] = axis.x * axis.z * (1 - cos) + axis.y * sin;
+
+    m[3] = axis.y * axis.x * (1 - cos) + axis.z * sin;
+    m[4] = cos + axis.y * axis.y * (1 - cos);
+    m[5] = axis.y * axis.z * (1 - cos) - axis.x * sin;
+
+    m[6] = axis.z * axis.x * (1 - cos) - axis.y * sin;
+    m[7] = axis.z * axis.y * (1 - cos) + axis.x * sin;
+    m[8] = cos + axis.z * axis.z * (1 - cos);
+
+    // 4x4矩陣的其餘部分保持不變
+    m[9] = m[10] = m[11] = m[12] = m[13] = m[14] = 0;
+    m[15] = 1;
+}
   
   void makeMirror(){
     m[0]  = -1;  m[1]  = 0.0f; m[2]  = 0.0f; m[3]  = 0.0f;

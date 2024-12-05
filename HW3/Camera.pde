@@ -1,17 +1,34 @@
 public class Camera {
     Matrix4 projection = new Matrix4();
     Matrix4 worldView = new Matrix4();
+    Matrix4 viewMatrix = new Matrix4();
     int wid;
     int hei;
     float near;
     float far;
     Transform transform;
 
+
+    public void rotate(float angle, Vector3 axis) {
+        Matrix4 rotation = new Matrix4();
+        rotation.makeRotation(angle, axis);
+
+        // 確保 viewMatrix 不為 null
+        if (viewMatrix == null) {
+            viewMatrix = new Matrix4();
+            viewMatrix.makeIdentity();
+        }
+
+        // 將旋轉矩陣應用到 viewMatrix
+        viewMatrix = viewMatrix.mult(rotation);
+    }
+
     Camera() {
         wid = 256;
         hei = 256;
         worldView.makeIdentity();
         projection.makeIdentity();
+        viewMatrix.makeIdentity();
         transform = new Transform();
     }
 

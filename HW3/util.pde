@@ -25,7 +25,7 @@ boolean pnpoly(float x, float y, Vector3[] vertexes) {
     // TODO HW2
     // You need to check the coordinate p(x,v) if inside the vertexes.
 
-    int numVertices = vertexes.length;
+    /*int numVertices = vertexes.length;
     boolean inside = false;
 
     for (int i = 0, j = numVertices - 1; i < numVertices; j = i++) {
@@ -42,7 +42,10 @@ boolean pnpoly(float x, float y, Vector3[] vertexes) {
             }
     }
 
-    return inside;
+    return inside;*/
+
+    //影響到會不會填滿
+    return false;
 }
 
 public Vector3[] findBoundBox(Vector3[] v) {    
