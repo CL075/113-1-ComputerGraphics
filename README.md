@@ -86,7 +86,7 @@ Vector3 right = Vector3.cross(topVector, forward);   // 計算右向量
 right.normalize();  // 正規化右向量
 ```
 ```
-Vector3 up = Vector3.cross(right, forward);    //計算上向量
+Vector3 up = Vector3.cross(right, forward);    // 計算上向量
 up.normalize();    // 正規化上向量
 ```
 ```
@@ -94,7 +94,7 @@ up.normalize();    // 正規化上向量
 worldView = Matrix4.Identity();
 ```
 ```
-//設置旋轉部分
+// 設置旋轉部分
 worldView.m[0] = right.x;
 worldView.m[1] = right.y;
 worldView.m[2] = right.z;
@@ -175,6 +175,7 @@ projection.m[15] = 0.0f;
 
 <br>
 投影矩陣的最終形式：
+<br>
 ![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/mathImg/final.svg)
 
 
