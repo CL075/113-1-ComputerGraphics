@@ -13,13 +13,11 @@ public class Camera {
         Matrix4 rotation = new Matrix4();
         rotation.makeRotation(angle, axis);
 
-        // 確保 viewMatrix 不為 null
         if (viewMatrix == null) {
             viewMatrix = new Matrix4();
             viewMatrix.makeIdentity();
         }
 
-        // 將旋轉矩陣應用到 viewMatrix
         viewMatrix = viewMatrix.mult(rotation);
     }
 
@@ -68,7 +66,6 @@ public class Camera {
 
         float aspectRatio = (float)w / (float)h;
     
-        // 設置投影矩陣為透視投影
         projection.m[0] = 1.0f / (aspectRatio * (float)Math.tan(Math.toRadians(GH_FOV / 2.0f)));
         projection.m[5] = 1.0f / (float)Math.tan(Math.toRadians(GH_FOV / 2.0f));
         projection.m[10] = (far + near) / (near - far);
@@ -91,22 +88,19 @@ public class Camera {
 
         //worldView = Matrix4.Identity();
 
-        // 1. 計算視點向量
-        Vector3 topVector = new Vector3(0, 1, 0);  // 定義上向量
+        Vector3 topVector = new Vector3(0, 1, 0); 
 
-        Vector3 forward = pos.sub(lookat);   // 計算朝向向量
-        forward.normalize();  // 正規化這個向量
+        Vector3 forward = pos.sub(lookat); 
+        forward.normalize(); 
         
-        Vector3 right = Vector3.cross(topVector, forward);   // 計算右向量
-        right.normalize();  // 正規化右向量
+        Vector3 right = Vector3.cross(topVector, forward); 
+        right.normalize(); 
         
         Vector3 up = Vector3.cross(forward, right);
         //up.normalize();
         
-        // 2. 建立視圖矩陣（也可以稱為視野矩陣）
         worldView = Matrix4.Identity();
         
-        // 將右、上、前向量設置到矩陣中
         worldView.m[0] = right.x;
         worldView.m[1] = right.y;
         worldView.m[2] = right.z;
@@ -122,7 +116,6 @@ public class Camera {
         worldView.m[10] = -forward.z;
         worldView.m[11] = -Vector3.dot(forward, pos);
         
-        // 設置平移
         worldView.m[12] = 0;
         worldView.m[13] = 0;
         worldView.m[14] = 0;
