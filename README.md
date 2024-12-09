@@ -39,7 +39,7 @@ GameObject::debugDraw()
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/rotation.gif)
 #### Change Scale
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/scale.gif)
-#### Camera Control
+#### Camera Control (只動鍵盤，沒有動滑鼠)
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/cameraControl_xy.gif)
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/cameraControl_z.gif)
 
