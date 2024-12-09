@@ -235,7 +235,7 @@ return Math.max(0.0f, Math.min(1.0f, depth));
 float moveSpeed = 0.1f;
 ```
 ```
-// 用鍵盤控制camera位置
+// 用鍵盤控制相機位置
 if (key == 'W' || key == 'w') {
     cam_position.y += moveSpeed;  // 向上移動
 }
