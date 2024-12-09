@@ -40,11 +40,11 @@ GameObject::debugDraw()
 ### Change Scale
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/scale.gif)
 ### Depth Buffer
-(不知道有沒有成功，感覺他變近的時候顏色有變深，變遠顏色就淡了)
-![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/depth.gif)
+![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/getDepth.gif)
+(靠我們越近，顏色越深；離我們越遠，顏色越淡)
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/getDepth-1.png)
-![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/getDepth-3.png)
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/getDepth-2.png)
+![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/getDepth-3.png)
 ### Camera Control (只動鍵盤，沒有動滑鼠)
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/cameraControl_xy.gif)
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/cameraControl_z.gif)
@@ -186,7 +186,6 @@ projection.m[15] = 0.0f;
 
 
 ### Depth Buffer
-(不確定有沒有成功寫出來)
 ```
 // 提取三角形的三個頂點
 Vector3 A = vertex[0];
