@@ -104,16 +104,19 @@ worldView = Matrix4.Identity();
 ```
 ```
 // 填充矩陣
+// (右向量)
 worldView.m[0] = right.x;
 worldView.m[1] = right.y;
 worldView.m[2] = right.z;
 worldView.m[3] = -Vector3.dot(right, pos);
 
+// (上向量)
 worldView.m[4] = up.x;
 worldView.m[5] = up.y;
 worldView.m[6] = up.z;
 worldView.m[7] = -Vector3.dot(up, pos);
 
+// (朝向向量)
 worldView.m[8] = -forward.x;
 worldView.m[9] = -forward.y;
 worldView.m[10] = -forward.z;
@@ -248,7 +251,7 @@ for (int i = 0; i < mesh.triangles.size(); i++) {
     Triangle triangle = mesh.triangles.get(i);
 ```
 ```
-// 計算三角形在世界空間的頂點座標
+// 將三角形的每個頂點透過 modelMatrix 轉換到世界空間
 Vector3 worldA = modelMatrix.mult(triangle.verts[0].getVector4(1.0)).homogenized();
 Vector3 worldB = modelMatrix.mult(triangle.verts[1].getVector4(1.0)).homogenized();
 Vector3 worldC = modelMatrix.mult(triangle.verts[2].getVector4(1.0)).homogenized();
@@ -261,12 +264,22 @@ Vector3 normal = Vector3.cross(edge1, edge2).unit_vector();
 
 Vector3 camDirection = cam_position.sub(worldA).unit_vector();
 ```
+```edge1```和```edg2```是三角形的兩個邊向量。
+<br>
+```normal```是三角形的法向量，透過兩個邊向量的叉積計算，並歸一化為單位向量。
+<br>
+```camDirection```是從三角形頂點指向相機位置的向量，也經過單位化。
+
 ```
 // 背面剔除
 if (Vector3.dot(normal, camDirection) <= 0) {
     continue;
 }
 ```
+透過法向量與視線方向的點積判斷三角形是否背向相機：
+<br>
+如果點積小於等於零，表示三角形的面朝遠離相機的方向。這種情況下會進行「背面剔除」，不繪製該三角形。
+
 ```
 // 投影到屏幕空間
 Vector3[] img_pos = new Vector3[3];
@@ -274,6 +287,7 @@ for (int j = 0; j < 3; j++) {
     img_pos[j] = MVP.mult(triangle.verts[j].getVector4(1.0)).homogenized();
 }
 ```
+使用```MVP```矩陣將三角形的三個頂點轉換到屏幕空間。並用```.homogenized()```還原齊次座標。
 ```
 // 屏幕空間到像素空間的映射
 for (int j = 0; j < img_pos.length; j++) {
@@ -284,6 +298,12 @@ for (int j = 0; j < img_pos.length; j++) {
     );
 }
 ```
+將屏幕空間的座標（範圍為 -1 到 1）映射到實際的像素座標。
+<>
+```map```函數將數值從一個範圍線性映射到另一個範圍：
+X 軸從```[-1, 1]```映射到像素範圍```[renderer_size.x, renderer_size.z]```。
+Y 軸從```[-1, 1]```映射到像素範圍```[renderer_size.w, renderer_size.y]```。
+
 ```
 // 繪製三角形邊線
 CGLine(img_pos[0].x, img_pos[0].y, img_pos[1].x, img_pos[1].y);
