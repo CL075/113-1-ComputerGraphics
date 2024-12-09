@@ -42,6 +42,8 @@ GameObject::debugDraw()
 #### Camera Control
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/cameraControl_xy.gif)
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/cameraControl_z.gif)
+#### Backculling
+![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/backculling.gif)
 
 
 ## How you completed these tasks
