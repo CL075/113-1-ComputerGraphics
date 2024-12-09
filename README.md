@@ -183,7 +183,7 @@ projection.m[15] = 0.0f;
 
 
 ### Depth Buffer
-我好像沒有成功寫出來，因為他的顏色沒有變淡
+(不確定有沒有成功寫出來)
 ```
 // 提取三角形的三個頂點
 Vector3 A = vertex[0];
@@ -194,6 +194,9 @@ Vector3 C = vertex[2];
 // 計算三角形的面積
 float triangleArea = Math.abs((B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y));
 ```
+叉積公式：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/mathImg/triangle.svg)
+<br>
+我們省略了```1/2```，因為我們只需要比例，並不關注實際面積大小。
 ```
 // 計算三個小三角形的面積，分別對應點 (x, y) 與三個頂點之一
 float areaPBC = Math.abs((B.x - x) * (C.y - y) - (C.x - x) * (B.y - y));
@@ -208,7 +211,11 @@ float gamma = areaPAB / triangleArea;
 ```
 ```
 // 使用重心座標加權計算深度 z 值
-return alpha * A.z + beta * B.z + gamma * C.z;
+float depth = alpha * A.z + beta * B.z + gamma * C.z;
+```
+```
+// 限制深度值範圍
+return Math.max(0.0f, Math.min(1.0f, depth));
 ```
 
 ### Camera Control
@@ -302,7 +309,7 @@ for (int j = 0; j < img_pos.length; j++) {
 }
 ```
 將屏幕空間的座標（範圍為 -1 到 1）映射到實際的像素座標。
-<>
+<br>
 ```map```函數將數值從一個範圍線性映射到另一個範圍：
 X 軸從```[-1, 1]```映射到像素範圍```[renderer_size.x, renderer_size.z]```。
 Y 軸從```[-1, 1]```映射到像素範圍```[renderer_size.w, renderer_size.y]```。
