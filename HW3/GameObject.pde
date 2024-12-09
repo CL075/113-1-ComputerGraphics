@@ -66,44 +66,11 @@ public class GameObject {
     }
 
     /*void debugDraw() {
-        /*Matrix4 MVP = main_camera.Matrix().mult(localToWorld());
+        Matrix4 MVP = main_camera.Matrix().mult(localToWorld());
         for (int i = 0; i < mesh.triangles.size(); i++) {
             Triangle triangle = mesh.triangles.get(i);
             Vector3[] img_pos = new Vector3[3];
-
-            // 計算三角形的法向量
-            Vector3 A = triangle.verts[0];
-            Vector3 B = triangle.verts[1];
-            Vector3 C = triangle.verts[2];
-
-            Vector3 AB = B.sub(A);  // 邊向量 AB
-            Vector3 AC = C.sub(A);  // 邊向量 AC
-            Vector3 normal = Vector3.cross(AB, AC);  // 法向量 N
-
-            // 計算視線方向，假設攝像機位置為 cam_position
-            Vector3 camDirection = cam_position.sub(A);
-            camDirection.normalize();
-
-            // 計算法向量與視線方向的點積
-            float dotProduct = Vector3.dot(normal, camDirection);
-
-            // 如果點積大於零，表示這個三角形是背向攝像機的，跳過它
-            if (dotProduct < 0) {
-                for (int j = 0; j < 3; j++) {
-                img_pos[j] = MVP.mult(triangle.verts[j].getVector4(1.0)).homogenized();
-            }
-
-            for (int j = 0; j < img_pos.length; j++) {
-                img_pos[j] = new Vector3(map(img_pos[j].x, -1, 1, renderer_size.x, renderer_size.z),
-                        map(img_pos[j].y, -1, 1, renderer_size.y, renderer_size.w), img_pos[j].z);
-            }
-
-            CGLine(img_pos[0].x, img_pos[0].y, img_pos[1].x, img_pos[1].y);
-            CGLine(img_pos[1].x, img_pos[1].y, img_pos[2].x, img_pos[2].y);
-            CGLine(img_pos[2].x, img_pos[2].y, img_pos[0].x, img_pos[0].y);
-            }*/
-
-            /*for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < 3; j++) {
                 img_pos[j] = MVP.mult(triangle.verts[j].getVector4(1.0)).homogenized();
             }
 
@@ -155,7 +122,7 @@ public class GameObject {
         for (int j = 0; j < img_pos.length; j++) {
             img_pos[j] = new Vector3(
                 map(img_pos[j].x, -1, 1, renderer_size.x, renderer_size.z),
-                map(img_pos[j].y, -1, 1, renderer_size.y, renderer_size.w),
+                map(img_pos[j].y, -1, 1, renderer_size.w, renderer_size.y),
                 img_pos[j].z()
             );
         }

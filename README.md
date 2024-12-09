@@ -33,9 +33,16 @@ GameObject::debugDraw()
 
 
 ## Some screenshots of your work
-![image]()
-![image]()
-![image]()
+#### Change Position
+![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/position.gif)
+#### Change Rotation
+![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/rotation.gif)
+#### Change Scale
+![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/scale.gif)
+#### Camera Control
+![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/cameraControl_xy.gif)
+![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/cameraControl_z.gif)
+
 
 ## How you completed these tasks
 
@@ -90,39 +97,32 @@ Vector3 up = Vector3.cross(right, forward);    // 計算上向量
 up.normalize();    // 正規化上向量
 ```
 ```
-// 初始化視圖矩陣
+// 初始化矩陣
 worldView = Matrix4.Identity();
 ```
 ```
-// 設置旋轉部分
+// 填充矩陣
 worldView.m[0] = right.x;
 worldView.m[1] = right.y;
 worldView.m[2] = right.z;
+worldView.m[3] = -Vector3.dot(right, pos);
 
 worldView.m[4] = up.x;
 worldView.m[5] = up.y;
 worldView.m[6] = up.z;
+worldView.m[7] = -Vector3.dot(up, pos);
 
 worldView.m[8] = -forward.x;
 worldView.m[9] = -forward.y;
 worldView.m[10] = -forward.z;
+worldView.m[11] = -Vector3.dot(forward, pos);
+
+// 設置平移
+worldView.m[12] = 0;
+worldView.m[13] = 0;
+worldView.m[14] = 0;
+worldView.m[15] = 1;
 ```
-上面的程式碼是依照這個矩陣來設定的：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/mathImg/worldView.svg)
-<br>
-第一列是右向量。
-<br>
-第二列是上向量。
-<br>
-第三列是負的前向量（因為相機的前向量和世界的前向量相反）。
-```
-// 設置平移部分
-worldView.m[12] = -pos.x;
-worldView.m[13] = -pos.y;
-worldView.m[14] = -pos.z;
-```
-平移部分矩陣結構：
-* 視圖矩陣需要將世界中的所有點相對於相機的位置進行平移。
-* 平移向量取負值，因為視圖矩陣本質上是相機位置的反變換。
 
 #### Perspective Rendering
 ```
@@ -178,12 +178,63 @@ projection.m[15] = 0.0f;
 
 
 #### Depth Buffer
+我好像沒有成功寫出來，因為他的顏色沒有變淡
 ```
-util::getDepth(float x, float y, Vector3[] vertex )
+// 提取三角形的三個頂點
+Vector3 A = vertex[0];
+Vector3 B = vertex[1];
+Vector3 C = vertex[2];
 ```
+```
+// 計算三角形的面積
+float triangleArea = Math.abs((B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y));
+```
+```
+// 計算三個小三角形的面積，分別對應點 (x, y) 與三個頂點之一
+float areaPBC = Math.abs((B.x - x) * (C.y - y) - (C.x - x) * (B.y - y));
+float areaPCA = Math.abs((C.x - x) * (A.y - y) - (A.x - x) * (C.y - y));
+float areaPAB = Math.abs((A.x - x) * (B.y - y) - (B.x - x) * (A.y - y));
+```
+```
+// 計算重心座標
+float alpha = areaPBC / triangleArea;
+float beta = areaPCA / triangleArea;
+float gamma = areaPAB / triangleArea;
+```
+```
+// 使用重心座標加權計算深度 z 值
+return alpha * A.z + beta * B.z + gamma * C.z;
+```
+
 #### Camera Control
 ```
-HW3::cameraControl()
+// 定義移動速度
+float moveSpeed = 0.1f;
+```
+```
+// 用鍵盤控制camera位置
+if (key == 'W' || key == 'w') {
+    cam_position.y += moveSpeed;  // 向上移動
+}
+if (key == 'S' || key == 's') {
+    cam_position.y -= moveSpeed;  // 向下移動
+}
+if (key == 'A' || key == 'a') {
+    cam_position.x -= moveSpeed;  // 向左移動
+}
+if (key == 'D' || key == 'd') {
+    cam_position.x += moveSpeed;  // 向右移動
+}
+if (key == 'Q' || key == 'q') {
+    cam_position.z += moveSpeed * 3;  // 向前移動
+}
+if (key == 'E' || key == 'e') {
+    cam_position.z -= moveSpeed * 3;  // 向後移動
+}
+```
+```
+// 更新camera位置
+main_camera.setPositionOrientation(cam_position, lookat);
 ```
 #### Backculling
 ```

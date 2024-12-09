@@ -94,14 +94,14 @@ public class Camera {
         // 1. 計算視點向量
         Vector3 topVector = new Vector3(0, 1, 0);  // 定義上向量
 
-        Vector3 forward = lookat.sub(pos);   // 計算朝向向量
+        Vector3 forward = pos.sub(lookat);   // 計算朝向向量
         forward.normalize();  // 正規化這個向量
         
         Vector3 right = Vector3.cross(topVector, forward);   // 計算右向量
         right.normalize();  // 正規化右向量
         
-        Vector3 up = Vector3.cross(right, forward);
-        up.normalize();
+        Vector3 up = Vector3.cross(forward, right);
+        //up.normalize();
         
         // 2. 建立視圖矩陣（也可以稱為視野矩陣）
         worldView = Matrix4.Identity();
@@ -110,19 +110,23 @@ public class Camera {
         worldView.m[0] = right.x;
         worldView.m[1] = right.y;
         worldView.m[2] = right.z;
+        worldView.m[3] = -Vector3.dot(right, pos);
         
         worldView.m[4] = up.x;
         worldView.m[5] = up.y;
         worldView.m[6] = up.z;
+        worldView.m[7] = -Vector3.dot(up, pos);
         
         worldView.m[8] = -forward.x;
         worldView.m[9] = -forward.y;
         worldView.m[10] = -forward.z;
+        worldView.m[11] = -Vector3.dot(forward, pos);
         
-        // 3. 設置相機位置
-        worldView.m[12] = -pos.x;
-        worldView.m[13] = -pos.y;
-        worldView.m[14] = -pos.z;
+        // 設置平移
+        worldView.m[12] = 0;
+        worldView.m[13] = 0;
+        worldView.m[14] = 0;
+        worldView.m[15] = 1;
     
     }
 

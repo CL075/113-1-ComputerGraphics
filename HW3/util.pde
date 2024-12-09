@@ -25,7 +25,7 @@ boolean pnpoly(float x, float y, Vector3[] vertexes) {
     // TODO HW2
     // You need to check the coordinate p(x,v) if inside the vertexes.
 
-    /*int numVertices = vertexes.length;
+    int numVertices = vertexes.length;
     boolean inside = false;
 
     for (int i = 0, j = numVertices - 1; i < numVertices; j = i++) {
@@ -42,10 +42,10 @@ boolean pnpoly(float x, float y, Vector3[] vertexes) {
             }
     }
 
-    return inside;*/
+    return inside;
 
     //影響到會不會填滿
-    return false;
+    //return false;
 }
 
 public Vector3[] findBoundBox(Vector3[] v) {    
@@ -157,26 +157,26 @@ public float getDepth(float x, float y, Vector3[] vertex) {
     // You need to calculate the depth (z) in the triangle (vertex) based on the
     // positions x and y. and return the z value;
 
-    // 取三角形的頂點
+    // 提取三角形的三個頂點
     Vector3 A = vertex[0];
     Vector3 B = vertex[1];
     Vector3 C = vertex[2];
-    
-    // 計算邊 AB, BC, CA 的長度
-    float areaTotal = Math.abs(A.x * (B.y - C.y) + B.x * (C.y - A.y) + C.x * (A.y - B.y));
-    
-    // 計算重心座標 u, v, w
-    float area1 = Math.abs(x * (B.y - C.y) + B.x * (C.y - y) + C.x * (y - B.y));
-    float area2 = Math.abs(A.x * (y - C.y) + x * (C.y - A.y) + C.x * (A.y - y));
-    float area3 = Math.abs(A.x * (B.y - y) + B.x * (y - A.y) + x * (A.y - B.y));
-    
-    // 根據重心座標公式計算 z 值
-    float u = area1 / areaTotal;
-    float v = area2 / areaTotal;
-    float w = area3 / areaTotal;
 
-    // 根據重心座標計算 z 值 (這裡假設 z 是線性插值)
-    return u * A.z + v * B.z + w * C.z;
+    // 計算三角形的面積（基於向量叉積）
+    float triangleArea = Math.abs((B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y));
+
+    // 計算三個小三角形的面積，分別對應點 (x, y) 與三個頂點之一
+    float areaPBC = Math.abs((B.x - x) * (C.y - y) - (C.x - x) * (B.y - y));
+    float areaPCA = Math.abs((C.x - x) * (A.y - y) - (A.x - x) * (C.y - y));
+    float areaPAB = Math.abs((A.x - x) * (B.y - y) - (B.x - x) * (A.y - y));
+
+    // 計算重心座標
+    float alpha = areaPBC / triangleArea;
+    float beta = areaPCA / triangleArea;
+    float gamma = areaPAB / triangleArea;
+
+    // 使用重心座標加權計算深度 z 值
+    return alpha * A.z + beta * B.z + gamma * C.z;
 
     //return 0.0;
 }
