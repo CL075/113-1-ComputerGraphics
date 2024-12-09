@@ -53,12 +53,13 @@ GameObject::debugDraw()
 
 
 ## How you completed these tasks
-
+用GPT協助我填寫這些空缺的程式碼，如果結果不如預期那就繼續問，或是手動修改一些呼叫function的方式之類的，畢竟他不知道當初怎麼宣告的，只能我們這邊手動改。
 ### Rotation Matrix
 ```
 Matrix4::makeRotY(Vector3 t)
 ```
 (這邊只寫了```makeRotY```跟```makeRotX```其他的Lab2有寫，且大同小異，就是公式不一樣而已)
+<br>
 我們設有一個基礎的矩陣為：
 ![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/identity.svg)
 ，由左至右，由上至下，分別將他從```m[0]```至```m[15]```依序編號。
@@ -67,6 +68,7 @@ Matrix4::makeRotY(Vector3 t)
 繞y矩陣的公式為：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_y.svg)
 <br>
 根據基礎矩陣及公式，修改```m[0]```、```m[2]```、```m[8]```、```m[10]```
+<br>
 <br>
 繞x矩陣的公式為：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_x.svg)，修改```m[5]```、```m[6]```、```m[9]```、```m[10]```
 <br>
