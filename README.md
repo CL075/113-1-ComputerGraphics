@@ -39,6 +39,9 @@ GameObject::debugDraw()
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/rotation.gif)
 ### Change Scale
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/scale.gif)
+### Depth Buffer
+(不知道有沒有成功，感覺他變近的時候顏色有變深，變遠顏色就淡了)
+![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/depth.gif)
 ### Camera Control (只動鍵盤，沒有動滑鼠)
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/cameraControl_xy.gif)
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/cameraControl_z.gif)
