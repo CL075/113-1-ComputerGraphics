@@ -58,6 +58,7 @@ GameObject::debugDraw()
 ```
 Matrix4::makeRotY(Vector3 t)
 ```
+(這邊只寫了```makeRotY```跟```makeRotX```其他的Lab2有寫，且大同小異，就是公式不一樣而已)
 我們設有一個基礎的矩陣為：
 ![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/identity.svg)
 ，由左至右，由上至下，分別將他從```m[0]```至```m[15]```依序編號。
@@ -66,6 +67,8 @@ Matrix4::makeRotY(Vector3 t)
 繞y矩陣的公式為：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_y.svg)
 <br>
 根據基礎矩陣及公式，修改```m[0]```、```m[2]```、```m[8]```、```m[10]```
+<br>
+繞x矩陣的公式為：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_x.svg)，修改```m[5]```、```m[6]```、```m[9]```、```m[10]```
 
 ### Model Transformation (Model Matrix)
 
