@@ -175,9 +175,6 @@ projection.m[15] = 0.0f;
 * ```​projection.m[14] = -1.0f```：表示投影矩陣的透視性，將 3D 點壓縮到 2D。
 * ```projection.m[15] = 0.0f```：固定在透視投影的標準形式中，表示投影到齊次坐標。
 
-<br>
-投影矩陣的最終形式： ![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/mathImg/final.svg)
-
 
 #### Depth Buffer
 我好像沒有成功寫出來，因為他的顏色沒有變淡
@@ -210,7 +207,7 @@ return alpha * A.z + beta * B.z + gamma * C.z;
 
 #### Camera Control
 ```
-// 定義移動速度
+// 設定移動速度
 float moveSpeed = 0.1f;
 ```
 ```
@@ -235,10 +232,61 @@ if (key == 'E' || key == 'e') {
 }
 ```
 ```
-// 更新camera位置
+// 更新相機位置
 main_camera.setPositionOrientation(cam_position, lookat);
 ```
 #### Backculling
 ```
-GameObject::debugDraw()
+// 初始化與計算必要的矩陣
+Matrix4 MVP = main_camera.Matrix().mult(localToWorld());
+Matrix4 modelMatrix = localToWorld();
+Vector3 cam_position = main_camera.Matrix().translation();
+```
+```
+// 遍歷模型的三角形
+for (int i = 0; i < mesh.triangles.size(); i++) {
+    Triangle triangle = mesh.triangles.get(i);
+```
+```
+// 計算三角形在世界空間的頂點座標
+Vector3 worldA = modelMatrix.mult(triangle.verts[0].getVector4(1.0)).homogenized();
+Vector3 worldB = modelMatrix.mult(triangle.verts[1].getVector4(1.0)).homogenized();
+Vector3 worldC = modelMatrix.mult(triangle.verts[2].getVector4(1.0)).homogenized();
+```
+```
+// 計算法向量與相機方向
+Vector3 edge1 = worldB.sub(worldA);
+Vector3 edge2 = worldC.sub(worldA);
+Vector3 normal = Vector3.cross(edge1, edge2).unit_vector();
+
+Vector3 camDirection = cam_position.sub(worldA).unit_vector();
+```
+```
+// 背面剔除
+if (Vector3.dot(normal, camDirection) <= 0) {
+    continue;
+}
+```
+```
+// 投影到屏幕空間
+Vector3[] img_pos = new Vector3[3];
+for (int j = 0; j < 3; j++) {
+    img_pos[j] = MVP.mult(triangle.verts[j].getVector4(1.0)).homogenized();
+}
+```
+```
+// 屏幕空間到像素空間的映射
+for (int j = 0; j < img_pos.length; j++) {
+    img_pos[j] = new Vector3(
+        map(img_pos[j].x, -1, 1, renderer_size.x, renderer_size.z),
+        map(img_pos[j].y, -1, 1, renderer_size.w, renderer_size.y),
+        img_pos[j].z()
+    );
+}
+```
+```
+// 繪製三角形邊線
+CGLine(img_pos[0].x, img_pos[0].y, img_pos[1].x, img_pos[1].y);
+CGLine(img_pos[1].x, img_pos[1].y, img_pos[2].x, img_pos[2].y);
+CGLine(img_pos[2].x, img_pos[2].y, img_pos[0].x, img_pos[0].y);
 ```
