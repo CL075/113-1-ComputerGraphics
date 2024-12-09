@@ -69,6 +69,10 @@ Matrix4::makeRotY(Vector3 t)
 根據基礎矩陣及公式，修改```m[0]```、```m[2]```、```m[8]```、```m[10]```
 <br>
 繞x矩陣的公式為：![svg](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab2/math_image/R_x.svg)，修改```m[5]```、```m[6]```、```m[9]```、```m[10]```
+<br>
+* makeRotX(float a) → Pitch (rotation about the X-axis).
+* makeRotY(float a) → Yaw (rotation about the Y-axis).
+* makeRotZ(float a) → Roll (rotation about the Z-axis).
 
 ### Model Transformation (Model Matrix)
 
