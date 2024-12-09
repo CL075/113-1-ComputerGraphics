@@ -2,31 +2,31 @@
 
 ## Which tasks you have completed
 
-#### Rotation Matrix
+### Rotation Matrix
 ```
 Matrix4::makeRotY(Vector3 t)
 ```
-#### Model Transformation (Model Matrix)
+### Model Transformation (Model Matrix)
 ```
 GameObject::localToWorld()
 ```
-#### Camera Transformation (View Matrix)
+### Camera Transformation (View Matrix)
 ```
 Camera::setPositionOrientation(Vector3 pos, Vector3 lookat)
 ```
-#### Perspective Rendering
+### Perspective Rendering
 ```
 Camera::setSize(int w, int h, float n, float f)
 ```
-#### Depth Buffer
+### Depth Buffer
 ```
 util::getDepth(float x, float y, Vector3[] vertex )
 ```
-#### Camera Control
+### Camera Control
 ```
 HW3::cameraControl()
 ```
-#### Backculling
+### Backculling
 ```
 GameObject::debugDraw()
 ```
@@ -35,20 +35,20 @@ GameObject::debugDraw()
 ## Some screenshots of your work
 #### Change Position
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/position.gif)
-#### Change Rotation
+### Change Rotation
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/rotation.gif)
-#### Change Scale
+### Change Scale
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/scale.gif)
-#### Camera Control (只動鍵盤，沒有動滑鼠)
+### Camera Control (只動鍵盤，沒有動滑鼠)
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/cameraControl_xy.gif)
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/cameraControl_z.gif)
-#### Backculling
+### Backculling
 ![gif](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab3/screenshots/backculling.gif)
 
 
 ## How you completed these tasks
 
-#### Rotation Matrix
+### Rotation Matrix
 ```
 Matrix4::makeRotY(Vector3 t)
 ```
@@ -61,7 +61,7 @@ Matrix4::makeRotY(Vector3 t)
 <br>
 根據基礎矩陣及公式，修改```m[0]```、```m[2]```、```m[8]```、```m[10]```
 
-#### Model Transformation (Model Matrix)
+### Model Transformation (Model Matrix)
 
 ```
 //用來計算物體的位置平移矩陣
@@ -81,7 +81,7 @@ Matrix4 scaleMatrix = Matrix4.Scale(transform.scale);
 //依次將平移、旋轉和縮放矩陣相乘，得到最終的模型矩陣
 return translationMatrix.mult(rotationMatrix).mult(scaleMatrix);
 ```
-#### Camera Transformation (View Matrix)
+### Camera Transformation (View Matrix)
 ```
 // 定義上向量
 Vector3 topVector = new Vector3(0, 1, 0);  
@@ -126,7 +126,7 @@ worldView.m[14] = 0;
 worldView.m[15] = 1;
 ```
 
-#### Perspective Rendering
+### Perspective Rendering
 ```
 // 設定相機屬性
 wid = w;
@@ -176,7 +176,7 @@ projection.m[15] = 0.0f;
 * ```projection.m[15] = 0.0f```：固定在透視投影的標準形式中，表示投影到齊次坐標。
 
 
-#### Depth Buffer
+### Depth Buffer
 我好像沒有成功寫出來，因為他的顏色沒有變淡
 ```
 // 提取三角形的三個頂點
@@ -205,7 +205,7 @@ float gamma = areaPAB / triangleArea;
 return alpha * A.z + beta * B.z + gamma * C.z;
 ```
 
-#### Camera Control
+### Camera Control
 ```
 // 設定移動速度
 float moveSpeed = 0.1f;
@@ -235,7 +235,7 @@ if (key == 'E' || key == 'e') {
 // 更新相機位置
 main_camera.setPositionOrientation(cam_position, lookat);
 ```
-#### Backculling
+### Backculling
 ```
 // 初始化與計算必要的矩陣
 Matrix4 MVP = main_camera.Matrix().mult(localToWorld());
