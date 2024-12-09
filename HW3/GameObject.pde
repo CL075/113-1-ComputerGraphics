@@ -65,8 +65,8 @@ public class GameObject {
     void update() {
     }
 
-    void debugDraw() {
-        Matrix4 MVP = main_camera.Matrix().mult(localToWorld());
+    /*void debugDraw() {
+        /*Matrix4 MVP = main_camera.Matrix().mult(localToWorld());
         for (int i = 0; i < mesh.triangles.size(); i++) {
             Triangle triangle = mesh.triangles.get(i);
             Vector3[] img_pos = new Vector3[3];
@@ -101,7 +101,7 @@ public class GameObject {
             CGLine(img_pos[0].x, img_pos[0].y, img_pos[1].x, img_pos[1].y);
             CGLine(img_pos[1].x, img_pos[1].y, img_pos[2].x, img_pos[2].y);
             CGLine(img_pos[2].x, img_pos[2].y, img_pos[0].x, img_pos[0].y);
-            }
+            }*/
 
             /*for (int j = 0; j < 3; j++) {
                 img_pos[j] = MVP.mult(triangle.verts[j].getVector4(1.0)).homogenized();
@@ -114,9 +114,59 @@ public class GameObject {
 
             CGLine(img_pos[0].x, img_pos[0].y, img_pos[1].x, img_pos[1].y);
             CGLine(img_pos[1].x, img_pos[1].y, img_pos[2].x, img_pos[2].y);
-            CGLine(img_pos[2].x, img_pos[2].y, img_pos[0].x, img_pos[0].y);*/
+            CGLine(img_pos[2].x, img_pos[2].y, img_pos[0].x, img_pos[0].y);
         }
+    }*/
+    void debugDraw() {
+    // 获取模型到屏幕的变换矩阵
+    Matrix4 MVP = main_camera.Matrix().mult(localToWorld());
+    Matrix4 modelMatrix = localToWorld(); // 模型的世界变换矩阵
+
+    Vector3 cam_position = main_camera.Matrix().translation();
+
+    for (int i = 0; i < mesh.triangles.size(); i++) {
+        Triangle triangle = mesh.triangles.get(i);
+
+        // 使用模型矩阵计算三角形的世界空间顶点
+        Vector3 worldA = modelMatrix.mult(triangle.verts[0].getVector4(1.0)).homogenized();
+        Vector3 worldB = modelMatrix.mult(triangle.verts[1].getVector4(1.0)).homogenized();
+        Vector3 worldC = modelMatrix.mult(triangle.verts[2].getVector4(1.0)).homogenized();
+
+        // 计算法向量
+        Vector3 edge1 = worldB.sub(worldA);
+        Vector3 edge2 = worldC.sub(worldA);
+        Vector3 normal = Vector3.cross(edge1, edge2).unit_vector();
+
+        // 计算摄像机方向
+        Vector3 camDirection = cam_position.sub(worldA).unit_vector();
+
+        // 背面剔除：法向量与视线方向点积判断
+        if (Vector3.dot(normal, camDirection) <= 0) {
+            continue; // 背面剔除
+        }
+
+        // 投影到屏幕空间
+        Vector3[] img_pos = new Vector3[3];
+        for (int j = 0; j < 3; j++) {
+            img_pos[j] = MVP.mult(triangle.verts[j].getVector4(1.0)).homogenized();
+        }
+
+        // 将屏幕空间坐标映射到像素空间
+        for (int j = 0; j < img_pos.length; j++) {
+            img_pos[j] = new Vector3(
+                map(img_pos[j].x, -1, 1, renderer_size.x, renderer_size.z),
+                map(img_pos[j].y, -1, 1, renderer_size.y, renderer_size.w),
+                img_pos[j].z()
+            );
+        }
+
+        // 绘制三角形边线
+        CGLine(img_pos[0].x, img_pos[0].y, img_pos[1].x, img_pos[1].y);
+        CGLine(img_pos[1].x, img_pos[1].y, img_pos[2].x, img_pos[2].y);
+        CGLine(img_pos[2].x, img_pos[2].y, img_pos[0].x, img_pos[0].y);
     }
+}
+
 
     String getGameObjectName() {
         return name;
