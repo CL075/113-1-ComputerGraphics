@@ -240,10 +240,10 @@ if (key == 'D' || key == 'd') {
     cam_position.x += moveSpeed;  // 向右移動
 }
 if (key == 'Q' || key == 'q') {
-    cam_position.z += moveSpeed * 3;  // 向前移動
+    cam_position.z += moveSpeed;  // 向前移動
 }
 if (key == 'E' || key == 'e') {
-    cam_position.z -= moveSpeed * 3;  // 向後移動
+    cam_position.z -= moveSpeed;  // 向後移動
 }
 ```
 ```
