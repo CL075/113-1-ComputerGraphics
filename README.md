@@ -203,6 +203,12 @@ float triangleArea = Math.abs((B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A
 <br>
 我們省略了```1/2```，因為我們只需要比例，並不關注實際面積大小。
 ```
+// 防止面積為零時出現問題
+if (triangleArea == 0) {
+    return 0.0f; 
+}
+```
+```
 // 計算三個小三角形的面積，分別對應點 (x, y) 與三個頂點之一
 float areaPBC = Math.abs((B.x - x) * (C.y - y) - (C.x - x) * (B.y - y));
 float areaPCA = Math.abs((C.x - x) * (A.y - y) - (A.x - x) * (C.y - y));
