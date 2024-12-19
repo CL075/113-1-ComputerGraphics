@@ -129,7 +129,29 @@ public float getDepth(float x, float y, Vector3[] vertex) {
     // You need to calculate the depth (z) in the triangle (vertex) based on the
     // positions x and y. and return the z value;
 
-    return 0.0;
+    //return 0.0;
+
+    Vector3 A = vertex[0];
+    Vector3 B = vertex[1];
+    Vector3 C = vertex[2];
+
+    float triangleArea = Math.abs((B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y));
+
+    if (triangleArea == 0) {
+        return 0.0f; 
+    }
+
+    float areaPBC = Math.abs((B.x - x) * (C.y - y) - (C.x - x) * (B.y - y));
+    float areaPCA = Math.abs((C.x - x) * (A.y - y) - (A.x - x) * (C.y - y));
+    float areaPAB = Math.abs((A.x - x) * (B.y - y) - (B.x - x) * (A.y - y));
+
+    float alpha = areaPBC / triangleArea; 
+    float beta = areaPCA / triangleArea; 
+    float gamma = areaPAB / triangleArea;
+
+    float depth = alpha * A.z + beta * B.z + gamma * C.z;
+
+    return Math.max(0.0f, Math.min(1.0f, depth));
 }
 
 float[] barycentric(Vector3 P, Vector4[] verts) {
