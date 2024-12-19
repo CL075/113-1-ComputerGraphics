@@ -46,6 +46,17 @@ public class Camera extends GameObject {
         // Where GH_FOV has been declared as a global variable.
         // Finally, pass the result into projection matrix.
 
+        projection = Matrix4.Identity();
+
+        float aspectRatio = (float)w / (float)h;
+    
+        projection.m[0] = 1.0f / (aspectRatio * (float)Math.tan(Math.toRadians(GH_FOV / 2.0f)));
+        projection.m[5] = 1.0f / (float)Math.tan(Math.toRadians(GH_FOV / 2.0f));
+        projection.m[10] = (far + near) / (near - far);
+        projection.m[11] = (2.0f * far * near) / (near - far);
+        projection.m[14] = -1.0f;
+        projection.m[15] = 0.0f;
+
     }
 
     void setPositionOrientation(Vector3 pos, float rotX, float rotY) {
@@ -64,6 +75,39 @@ public class Camera extends GameObject {
         // We uses topVector = (0,1,0) to calculate the eye matrix.
         // Finally, pass the result into worldView matrix.
 
+        //worldView = Matrix4.Identity();
+
+        Vector3 topVector = new Vector3(0, 1, 0); 
+
+        Vector3 forward = pos.sub(lookat); 
+        forward.normalize(); 
+        
+        Vector3 right = Vector3.cross(topVector, forward); 
+        right.normalize(); 
+        
+        Vector3 up = Vector3.cross(forward, right);
+        //up.normalize();
+        
         worldView = Matrix4.Identity();
+        
+        worldView.m[0] = right.x;
+        worldView.m[1] = right.y;
+        worldView.m[2] = right.z;
+        worldView.m[3] = -Vector3.dot(right, pos);
+        
+        worldView.m[4] = up.x;
+        worldView.m[5] = up.y;
+        worldView.m[6] = up.z;
+        worldView.m[7] = -Vector3.dot(up, pos);
+        
+        worldView.m[8] = -forward.x;
+        worldView.m[9] = -forward.y;
+        worldView.m[10] = -forward.z;
+        worldView.m[11] = -Vector3.dot(forward, pos);
+        
+        worldView.m[12] = 0;
+        worldView.m[13] = 0;
+        worldView.m[14] = 0;
+        worldView.m[15] = 1;
     }
 }
