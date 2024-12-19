@@ -25,7 +25,27 @@ boolean pnpoly(float x, float y, Vector3[] vertexes) {
     // TODO HW2
     // You need to check the coordinate p(x,v) if inside the vertexes. 
 
-    return false;
+    //return false;
+
+    int numVertices = vertexes.length;
+    boolean inside = false;
+
+    for (int i = 0, j = numVertices - 1; i < numVertices; j = i++) {
+        float xi = vertexes[i].x;
+        float yi = vertexes[i].y;
+        float xj = vertexes[j].x;
+        float yj = vertexes[j].y;
+
+            if ((yi > y) != (yj > y)) { 
+                float intersectX = (xj - xi) * (y - yi) / (yj - yi) + xi;
+                if (x < intersectX) {
+                    inside = !inside; 
+                }
+            }
+    }
+
+    return inside;
+
 }
 
 public Vector3[] findBoundBox(Vector3[] v) {
@@ -33,6 +53,22 @@ public Vector3[] findBoundBox(Vector3[] v) {
     Vector3 recordmaxV = new Vector3(-1.0 / 0.0);
     // TODO HW2
     // You need to find the bounding box of the vertexes v.
+
+    if (v == null || v.length == 0) {
+        return new Vector3[]{recordminV, recordmaxV};
+    }
+
+    for (int i = 0; i < v.length; i++) {
+        Vector3 current = v[i];
+
+        recordminV.x = Math.min(recordminV.x, current.x);
+        recordminV.y = Math.min(recordminV.y, current.y);
+        recordminV.z = Math.min(recordminV.z, current.z);
+
+        recordmaxV.x = Math.max(recordmaxV.x, current.x);
+        recordmaxV.y = Math.max(recordmaxV.y, current.y);
+        recordmaxV.z = Math.max(recordmaxV.z, current.z);
+    }
 
     Vector3[] result = { recordminV, recordmaxV };
     return result;
@@ -51,7 +87,35 @@ public Vector3[] Sutherland_Hodgman_algorithm(Vector3[] points, Vector3[] bounda
     // And the other is the vertexes of the "boundary".
     // The output is the vertexes of the polygon.
 
-    output = input;
+    //output = input;
+
+    for (int j = 0; j < boundary.length; j++) {
+        Vector3 edgeStart = boundary[j];
+        Vector3 edgeEnd = boundary[(j + 1) % boundary.length];
+
+        output.clear();
+
+        for (int i = 0; i < input.size(); i++) {
+            Vector3 current = input.get(i);
+            Vector3 next = input.get((i + 1) % input.size());
+
+            boolean currentInside = isInside(current, edgeStart, edgeEnd);
+            boolean nextInside = isInside(next, edgeStart, edgeEnd);
+
+            if (currentInside && nextInside) {
+                output.add(next);
+            } 
+            else if (currentInside) {
+                output.add(calculateIntersection(current, next, edgeStart, edgeEnd));
+            } 
+            else if (nextInside) {
+                output.add(calculateIntersection(current, next, edgeStart, edgeEnd));
+                output.add(next);
+            }
+        }
+
+        input = new ArrayList<>(output);
+    }
 
     Vector3[] result = new Vector3[output.size()];
     for (int i = 0; i < result.length; i += 1) {
