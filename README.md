@@ -17,8 +17,9 @@ ColorShader::PhongFragmentShader
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab4/screenshots/light_position.gif)
 ### 可改變物體的顏色(Phong Shading)
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab4/screenshots/phong_color.gif)
-### 
-![image]()
+### FlatMaterial
+我感覺沒成功QAQ，沒有什麼光線的變化QAQ
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab4/screenshots/flat.gif)
 
 ## How you completed these tasks
 ### Barycentric Coordinates
@@ -127,6 +128,74 @@ float kdksm_y_specular = kdksm.y * specular;
 Vector3 diffuseComponent = albedo.mult(kdksm.x * diffuse);
 Vector3 specularComponent = albedo.mult(kdksm.y * specular * light.intensity);
 Vector3 colors = diffuseComponent.add(specularComponent);
+```
+```
+// 返回片段顏色
+return new Vector4(colors.x, colors.y, colors.z, 1.0);
+```
+
+
+### Flat Shading
+
+```
+ColorShader::FlatVertexShader
+```
+```
+// 頂點資料與變換矩陣初始化
+Vector3[] aVertexPosition = (Vector3[]) attribute[0]; // 三角形的三個頂點位置
+Matrix4 MVP = (Matrix4) uniform[0]; // 模型-視圖-投影矩陣，用於將頂點轉換到裁剪空間。
+Matrix4 modelMatrix = (Matrix4) uniform[1]; // 模型矩陣，用於將頂點轉換到世界空間。
+Vector4[] gl_Position = new Vector4[3]; // 裁剪空間中的頂點位置，OpenGL 的基礎輸出，用於後續的圖形渲染管線。
+Vector4[] w_position = new Vector4[3]; // 世界空間中的頂點位置，用於光照計算。
+```
+```
+// 計算三角形的面法線
+Vector3 edge1 = aVertexPosition[1].sub(aVertexPosition[0]);
+Vector3 edge2 = aVertexPosition[2].sub(aVertexPosition[0]);
+Vector3 faceNormal = Vector3.cross(edge1, edge2);
+faceNormal.normalize(); // 計算並歸一化法線
+```
+```
+// 將頂點轉換到世界空間和裁剪空間
+for (int i = 0; i < gl_Position.length; i++) {
+    w_position[i] = modelMatrix.mult(aVertexPosition[i].getVector4(1.0));
+    gl_Position[i] = MVP.mult(aVertexPosition[i].getVector4(1.0));
+}
+```
+```
+// 將法線作為輸出傳遞
+Vector4 faceNormalOutput = faceNormal.getVector4(0.0); // 將 Vector3 轉換為 Vector4
+```
+```
+// 數據輸出到片段著色器
+Vector4[][] result = { gl_Position, w_position, { faceNormalOutput } };
+
+return result;
+```
+
+```
+ColorShader::FlatFragmentShader
+```
+```
+// 接收輸入數據
+Vector3 faceNormal = ((Vector4) varying[2]).xyz(); // 面法線
+Vector3 w_position = ((Vector4) varying[1]).xyz(); // 世界空間位置
+Vector3 albedo = new Vector3(1.0, 0.5, 0.3); // 材質顏色
+Camera cam = main_camera; // 相機
+Light light = basic_light; // 光源
+```
+```
+// 計算光源方向
+Vector3 lightDir = light.transform.position.sub(w_position); // 光源方向
+lightDir.normalize();
+```
+```
+// 計算漫反射分量
+float diffuse = Math.max(Vector3.dot(faceNormal, lightDir), 0.0);
+```
+```
+// 計算片段顏色
+Vector3 colors = albedo.mult(diffuse * light.intensity);
 ```
 ```
 // 返回片段顏色
