@@ -85,7 +85,50 @@ return result;
 
 ### Phong Shading
 ```
-Material::PhongMaterial
-ColorShader::PhongVertexShader
 ColorShader::PhongFragmentShader
+```
+```
+// 計算光線方向
+Vector3 lightDir = light.transform.position.sub(w_position);
+lightDir.normalize();
+```
+```
+//  計算觀察方向
+Vector3 viewDir = (cam.transform.position.sub(w_position));
+viewDir.normalize();
+```
+```
+// 計算反射方向
+Vector3 reflectDir = lightDir.reflect(w_normal);
+```
+```
+// Reflect method
+public Vector3 reflect(Vector3 normal) {
+    return this.sub(normal.mult(2 * dot(this, normal)));
+}
+```
+```
+// 漫反射分量計算
+float diffuse = Math.max(Vector3.dot(w_normal, lightDir), 0.0); 
+```
+dot結果越大，說明光線與法線夾角越小，漫反射效果越強
+<br>
+使用 ```Math.max()``` 確保點積結果為非負數（避免背面被照亮）
+```
+// 高光反射分量計算
+float specular = (float) Math.pow(Math.max(Vector3.dot(viewDir, reflectDir), 0.0), kdksm.z);
+```
+dot結果越接近 1，代表觀察方向與反射方向越接近，高光越強
+```
+// 計算總顏色
+float kdksm_x_diffuse = kdksm.x * diffuse;
+float kdksm_y_specular = kdksm.y * specular;
+
+Vector3 diffuseComponent = albedo.mult(kdksm.x * diffuse);
+Vector3 specularComponent = albedo.mult(kdksm.y * specular * light.intensity);
+Vector3 colors = diffuseComponent.add(specularComponent);
+```
+```
+// 返回片段顏色
+return new Vector4(colors.x, colors.y, colors.z, 1.0);
 ```
