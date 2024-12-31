@@ -28,7 +28,7 @@ ColorShader::GouraudFragmentShader
 ### Phong Shading
 可改變物體顏色、光源的位置、光源強度
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab4/screenshots/phong_color.gif)
-![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab4/screenshots/phong_color.gif)
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab4/screenshots/phong_light.gif)
 
 ### Flat Shading
 我感覺沒成功QAQ，沒有什麼光線的變化QAQ
