@@ -195,7 +195,40 @@ float[] barycentric(Vector3 P, Vector4[] verts) {
     // Please notice that you should use Perspective-Correct Interpolation otherwise
     // you will get wrong answer.
 
-    float[] result = { 0.0, 0.0, 0.0 };
+    // 計算三角形的總面積
+    float areaABC = Math.abs((B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y));
+
+    if (areaABC == 0) {
+        return new float[]{0.0f, 0.0f, 0.0f}; // 避免除以零的情況
+    }
+
+    // 計算三個子三角形的面積
+    float areaPBC = Math.abs((B.x - P.x) * (C.y - P.y) - (C.x - P.x) * (B.y - P.y));
+    float areaPCA = Math.abs((C.x - P.x) * (A.y - P.y) - (A.x - P.x) * (C.y - P.y));
+    float areaPAB = Math.abs((A.x - P.x) * (B.y - P.y) - (B.x - P.x) * (A.y - P.y));
+
+    // 計算未經校正的重心坐標
+    float alpha = areaPBC / areaABC;
+    float beta = areaPCA / areaABC;
+    float gamma = areaPAB / areaABC;
+
+    // 透視校正
+    alpha /= AW.w;
+    beta /= BW.w;
+    gamma /= CW.w;
+
+    // 計算校正後的權重總和
+    float weightSum = alpha + beta + gamma;
+
+    // 將校正後的重心坐標進行標準化
+    alpha /= weightSum;
+    beta /= weightSum;
+    gamma /= weightSum;
+
+    // 將結果存入 result
+    float[] result = {alpha, beta, gamma};
+
+    //float[] result = { 0.0, 0.0, 0.0 };
 
     return result;
 }
