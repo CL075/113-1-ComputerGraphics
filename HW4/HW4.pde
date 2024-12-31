@@ -23,7 +23,7 @@ Light basic_light;
 void setup() {
     size(1000, 600);
     renderer_size = new Vector4(20, 50, 520, 550);
-
+    cam_position = new Vector3(0, 0, -10);
     lookat = new Vector3(0, 0, 0);
     setDepthBuffer();
     main_camera = new Camera();
@@ -71,5 +71,32 @@ void cameraControl() {
     // ViewMatrix.
     // Hint : Use keyboard event and mouse click event to change the position of the
     // camera.
+
+    float moveSpeed = 0.1f; // 相機移動速度
+    Vector3 direction = new Vector3(0, 0, 0);
+
+    // 監聽鍵盤事件來控制相機移動
+    if (keyPressed) {
+        if (key == 'W' || key == 'w') {
+            cam_position.y += moveSpeed;  // 向上移動
+        }
+        if (key == 'S' || key == 's') {
+            cam_position.y -= moveSpeed;  // 向下移動
+        }
+        if (key == 'A' || key == 'a') {
+            cam_position.x -= moveSpeed;  // 向左移動
+        }
+        if (key == 'D' || key == 'd') {
+            cam_position.x += moveSpeed;  // 向右移動
+        }
+        if (key == 'Q' || key == 'q') {
+            cam_position.z += moveSpeed;  // 向前移動
+        }
+        if (key == 'E' || key == 'e') {
+            cam_position.z -= moveSpeed;  // 向後移動
+        }
+    }
+
+    main_camera.setPositionOrientation(cam_position, lookat);
 
 }
