@@ -57,6 +57,24 @@ public class PhongMaterial extends Material {
 
     Vector4 fragmentShader(Vector3 position, Vector4[] varing) {
 
+        Vector3 lightDir = basic_light.transform.position.sub(position); // 光源方向
+
+        Vector3 viewDir = main_camera.transform.position.sub(position);  // 視角方向
+        Vector3 reflectDir = lightDir.reflect(varing[0].xyz());  // Reflection direction
+
+        float NdotL = Math.max(Vector3.dot(lightDir, varing[0].xyz()), 0.0);   // Diffuse term
+        float NdotV = Math.max(Vector3.dot(viewDir, varing[0].xyz()), 0.0);   // Specular term
+        float RdotV = Math.max(Vector3.dot(viewDir, reflectDir), 0.0);        // Specular term
+
+        // Ambient
+        Vector3 ambient = Ka.mult(albedo.x);
+
+        // Diffuse
+        Vector3 diffuse = albedo.mult(Kd * NdotL);
+
+        // Specular
+        Vector3 specular = new Vector3(1.0f).mult(Ks * (float) Math.pow(RdotV, m));
+
         return shader.fragment
                 .main(new Object[] { position, varing[0].xyz(), varing[1].xyz(), albedo, new Vector3(Kd, Ks, m) });
     }
@@ -71,12 +89,16 @@ public class FlatMaterial extends Material {
     Vector4[][] vertexShader(Triangle triangle, Matrix4 M) {
         Matrix4 MVP = main_camera.Matrix().mult(M);
         Vector3[] position = triangle.verts;
+        Vector3 normal = triangle.normal[0];
 
         // TODO HW4
         // pass the uniform you need into the shader.
 
-        Vector4[][] r = shader.vertex.main(new Object[] { position }, new Object[] { MVP });
-        return r;
+        Vector4[] normals = { normal.getVector4(0.0) }; // Get normal as Vector4 for consistency
+        Vector4[][] r = shader.vertex.main(new Object[] { position }, new Object[] { MVP, triangle });
+
+        // Add normal to the result
+        return new Vector4[][] { r[0], normals };
     }
 
     Vector4 fragmentShader(Vector3 position, Vector4[] varing) {
@@ -96,7 +118,8 @@ public class GouraudMaterial extends Material {
         // TODO HW4
         // pass the uniform you need into the shader.
 
-        Vector4[][] r = shader.vertex.main(new Object[] { position }, new Object[] { MVP });
+        //Vector4[][] r = shader.vertex.main(new Object[] { position }, new Object[] { MVP });
+        Vector4[][] r = shader.vertex.main(new Object[] { triangle.verts }, new Object[] { MVP, triangle.normal });
         return r;
     }
 
