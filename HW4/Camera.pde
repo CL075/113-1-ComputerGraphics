@@ -75,7 +75,7 @@ public class Camera extends GameObject {
         // We uses topVector = (0,1,0) to calculate the eye matrix.
         // Finally, pass the result into worldView matrix.
 
-        //worldView = Matrix4.Identity();
+        worldView = Matrix4.Identity();
 
         Vector3 topVector = new Vector3(0, 1, 0); 
 
