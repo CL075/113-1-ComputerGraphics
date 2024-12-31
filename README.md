@@ -319,7 +319,3 @@ public Vector3 reflect(Vector3 normal) {
 ```
 添加了一個關於反射的function。
 
-```
-Material.pde
-```
-
