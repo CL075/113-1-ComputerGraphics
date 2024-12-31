@@ -11,11 +11,23 @@ Material::PhongMaterial
 ColorShader::PhongVertexShader
 ColorShader::PhongFragmentShader
 ```
+### Flat Shading
+```
+Material::FlatMaterial
+ColorShader::FlatVertexShader
+ColorShader::FlatFragmentShader
+```
+### Gouraud Shading
+```
+Material::GouraudMaterial
+ColorShader::GouraudVertexShader
+ColorShader::GouraudFragmentShader
+```
 
 ## Some screenshots of your work
-### 可改變光源的位置
-![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab4/screenshots/light_position.gif)
-### 可改變物體的顏色(Phong Shading)
+### Phong Shading
+可改變物體顏色、光源的位置、光源強度
+![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab4/screenshots/phong_color.gif)
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab4/screenshots/phong_color.gif)
 ### FlatMaterial
 我感覺沒成功QAQ，沒有什麼光線的變化QAQ
@@ -101,6 +113,7 @@ viewDir.normalize();
 ```
 // 計算反射方向
 Vector3 reflectDir = lightDir.reflect(w_normal);
+reflectDir.normalize();
 ```
 ```
 // Reflect method
@@ -108,6 +121,13 @@ public Vector3 reflect(Vector3 normal) {
     return this.sub(normal.mult(2 * dot(this, normal)));
 }
 ```
+```
+// 計算 Phong 着色模型 中的環境光 (Ambient Light) 分量。
+Vector3 ambientComponent = albedo.mult(0.5f);
+```
+當乘的數值越小，它的環境光就會降低，所以整個物件會起來會非常黑。
+但當乘的越大，他反而會太亮導致他沒有了物件的細節。
+所以我這邊放了偏中間的數值。
 ```
 // 漫反射分量計算
 float diffuse = Math.max(Vector3.dot(w_normal, lightDir), 0.0); 
@@ -199,5 +219,61 @@ Vector3 colors = albedo.mult(diffuse * light.intensity);
 ```
 ```
 // 返回片段顏色
+return new Vector4(colors.x, colors.y, colors.z, 1.0);
+```
+
+### Gouraud Shading
+
+```
+Material::GouraudMaterial
+```
+```
+// 頂點處理與著色器調用
+Vector4[][] r = shader.vertex.main(new Object[] { triangle.verts }, new Object[] { MVP, triangle.normal });
+```
+```
+ColorShader::GouraudVertexShader
+```
+```
+Vector3[] aVertexPosition = (Vector3[]) attribute[0]; // 輸入的頂點位置，是一個 Vector3[]，表示三角形的三個頂點
+Matrix4 MVP = (Matrix4) uniform[0]; // 模型-視圖-投影矩陣，用於將頂點位置從局部空間轉換到螢幕空間
+Vector3[] normal = (Vector3[]) uniform[1]; // 三角形的法向量，用於光照強度計算
+Vector3 lightDir = basic_light.transform.position; // 光源的方向，從光源位置轉換後正規化，確保後續的點積運算不受向量長度影響
+lightDir.normalize();
+```
+```
+// 頂點著色與 Gouraud 着色實現
+for (int i = 0; i < gl_Position.length; i++) {
+
+    // 將頂點位置 (aVertexPosition[i]) 擴展為 4 維向量，然後通過 MVP 矩陣進行變換，得到屏幕空間的座標
+    gl_Position[i] = MVP.mult(aVertexPosition[i].getVector4(1.0));
+
+    // 使用 法向量 (normal[i]) 與光源方向 (lightDir) 的點積計算光照強度
+    float intensity = Math.max(Vector3.dot(normal[i], lightDir), 0.0);
+
+    // 使用強度值設置頂點的顏色 (vertexColors[i])
+    vertexColors[i] = new Vector3(intensity, intensity, intensity);
+}
+```
+```
+// 將 Vector3 的顏色數據轉換為 Vector4 格式，並附加 1.0 作為第四個維度，確保與其他數據類型一致。
+Vector4[] vertexColors4 = new Vector4[3];
+for (int i = 0; i < vertexColors.length; i++) {
+    vertexColors4[i] = vertexColors[i].getVector4(1.0); 
+}
+
+// 返回結果
+Vector4[][] result = { gl_Position, vertexColors4 };
+return result;
+```
+
+```
+ColorShader::GouraudFragmentShader
+```
+```
+// 插值後的顏色數據，由頂點著色器基於 Gouraud 着色模型計算的光照結果
+Vector3 colors = (Vector3) varying[1];
+
+// 將 RGB 值從 Vector3 轉換為 Vector4，並附加 Alpha 通道值為 1.0（完全不透明）
 return new Vector4(colors.x, colors.y, colors.z, 1.0);
 ```
