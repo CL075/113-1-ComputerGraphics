@@ -158,6 +158,10 @@ static final public class Vector3 {
         float a=1/this.norm();
         this.product(a);
     }
+    // Reflect method
+    public Vector3 reflect(Vector3 normal) {
+        return this.sub(normal.mult(2 * dot(this, normal)));
+    }
 
     public static Vector3 unit_vector(Vector3 v) {
         return Vector3.mult(1/v.norm(), v);
