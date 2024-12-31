@@ -29,9 +29,13 @@ ColorShader::GouraudFragmentShader
 可改變物體顏色、光源的位置、光源強度
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab4/screenshots/phong_color.gif)
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab4/screenshots/phong_color.gif)
-### FlatMaterial
+
+### Flat Shading
 我感覺沒成功QAQ，沒有什麼光線的變化QAQ
 ![image](https://github.com/CL075/113-1-ComputerGraphics/blob/Lab4/screenshots/flat.gif)
+
+### Gouraud Shading
+會當機QAQ
 
 ## How you completed these tasks
 ### Barycentric Coordinates
@@ -156,6 +160,24 @@ return new Vector4(colors.x, colors.y, colors.z, 1.0);
 
 
 ### Flat Shading
+```
+Material::FlatMaterial
+```
+```
+// 提取三角形的頂點和法向量
+Vector3[] position = triangle.verts;
+Vector3 normal = triangle.normal[0];
+```
+```
+// 法向量轉換為 Vector4
+Vector4[] normals = { normal.getVector4(0.0) };
+
+// 調用頂點著色器邏輯
+Vector4[][] r = shader.vertex.main(new Object[] { position }, new Object[] { MVP, triangle });
+
+// 合併法向量
+return new Vector4[][] { r[0], normals };
+```
 
 ```
 ColorShader::FlatVertexShader
@@ -277,3 +299,27 @@ Vector3 colors = (Vector3) varying[1];
 // 將 RGB 值從 Vector3 轉換為 Vector4，並附加 Alpha 通道值為 1.0（完全不透明）
 return new Vector4(colors.x, colors.y, colors.z, 1.0);
 ```
+
+### 其餘有修改的地方
+
+```
+HW4.pde
+
+cam_position = new Vector3(0, 0, -10);
+```
+我要添加```cameraControl```的時候，他好像沒有初始化所以會抱錯，把它加上去就可以了。
+
+```
+Vector3.pde
+
+// Reflect method
+public Vector3 reflect(Vector3 normal) {
+    return this.sub(normal.mult(2 * dot(this, normal)));
+}
+```
+添加了一個關於反射的function。
+
+```
+Material.pde
+```
+
